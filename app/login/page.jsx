@@ -25,6 +25,26 @@ useEffect(() => {
     setPassword('');
   }
 }, [loggedInUser]);
+
+const handleSubmit = async e => {
+  /*if (loggedInUser.user.email === email){
+    setErrMsg('You\'re already logged in!');
+    return;
+  }*/
+  setIsLoading(true);
+  e.preventDefault();
+  login(email, password)
+  .then(res => {
+    console.log(res);
+    setLoggedInUser(res);
+    setIsLoading(false);
+    setSuccessMsg(true);
+  })
+  .catch(err => {
+    setIsLoading(false);
+    const msg = err.response?.data?.message;
+    setErrMsg(msg ? msg : "Unable to process your request.");
+  })
 };
 
 return (
@@ -42,6 +62,20 @@ return (
     </div>
     <button className="bg-gray-900 text-stone-100 py-2.5 px-5 mt-4 rounded-md active:bg-gray-600">Login</button>
   </form>
+
+  {loading && <Spinner/>}
+
+  {successMsg && <div className="mx-auto my-16 p-4 bg-green-200 w-11/12 max-w-3xl rounded-md shadow-lg shadow-green-300/60">
+    <p className="text-lg font-semibold">You have logged in successfully.</p>
+    <p>Welcome back!</p>
+    <button onClick={() => setSuccessMsg(false)} className="bg-green-300 py-2.5 px-5 mt-4 border border-gray-400 rounded-md ">Dismiss</button>
+  </div>}
+
+  {errMsg && <div className="mx-auto my-16 p-4 bg-red-200 w-11/12 max-w-3xl rounded-md shadow-lg shadow-red-300/60">
+    <p className="text-lg font-semibold">Somthing went wrong.</p>
+    <p>{errMsg}</p>
+    <button onClick={() => setErrMsg(false)} className="bg-red-300 py-2.5 px-5 mt-4 border border-gray-400 rounded-md ">Dismiss</button>
+  </div>}
 
 </main>);
 };
