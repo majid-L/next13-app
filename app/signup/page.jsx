@@ -7,6 +7,45 @@ import Spinner from "../components/Spinner";
 
 const signup = (name, email, password, passwordConf) => axios.post('https://laravel-php-api.vercel.app/public/api/signup', {name, email, password, 'password_confirmation': passwordConf}).then(({data}) => data);
 
+const SignupPage = () => {
+const [name, setName] = useState('');
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+const [passwordConf, setPasswordConf] = useState('');
+const [errMsg, setErrMsg] = useState('');
+const [successMsg, setSuccessMsg] = useState('');
+const [isLoading, setIsLoading] = useState(false);
+
+const {loggedInUser, setLoggedInUser, userDetails, setUserDetails} = useContext(GlobalContext);
+
+useEffect(() => {
+  if (loggedInUser) {
+    window.localStorage.setItem('EXAM_APP', loggedInUser);
+  }
+}, [loggedInUser]);
+
+useEffect(() => {
+  setLoggedInUser(window.localStorage.getItem('EXAM_APP'));
+}, []);
+
+const handleSubmit = async e => {
+  e.preventDefault();
+  setIsLoading(true);
+  setSuccessMsg(false);
+  signup(name, email, password, passwordConf)
+  .then(res => {
+    setLoggedInUser(res.user.name);
+    setAuthToken(res.token);
+    setIsLoading(false);
+    setSuccessMsg(true);
+  })
+  .catch(err => {
+    setIsLoading(false);
+    const msg = err.response?.data?.message;
+    setErrMsg(msg ? msg : "Unable to process your request.");
+  })
+};
+
 return (
 <main>
   <h1 className="text-stone-100 text-center w-4/5 font-bold text-3xl md:text-4xl mx-auto mt-20">Sign up for a new account.</h1>
@@ -31,7 +70,7 @@ return (
     <button className="bg-gray-900 text-stone-100 py-2.5 px-5 mt-4 rounded-md active:bg-gray-600">Create account</button>
   </form>
 
-  {loading && <Spinner/>}
+  {isLoading && <Spinner/>}
 
   {successMsg && <div className="mx-auto my-16 p-4 bg-green-200 w-11/12 max-w-3xl rounded-md shadow-lg shadow-green-300/60">
     <p className="text-lg font-semibold">Account created successfully.</p>
