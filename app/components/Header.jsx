@@ -32,8 +32,6 @@ const handleLogout = () => {
   });
 }
 
-console.log(loggedInUser);
-
 return(
     <header>
     {/* Navbar */}
@@ -42,16 +40,17 @@ return(
         {/* Flex container */}
         <div className="flex items-center justify-between">
             {/* logo */}
-            <div className="flex items-center pt-2 space-x-6">
+            <div className="flex items-center py-2 space-x-2">
                 <img className="w-10 h-10" src="/images/dice-5-fill.svg"/>
                 <p className="text-xl">NXExams</p>
             </div>
             {/* menu items */}
-            <div className="hidden md:flex space-x-6">
-              <Link className="hover:text-gray-400" href='/'>Home</Link>
-              <Link href='/exams'>{loggedInUser?.user?.email?.endsWith('@v3.admin') ? 'Admin dashboard' : 'My exams'}</Link>
-              <Link href='/about/extra'>Candidates</Link>
-              <Link href='/github/projects'>Map</Link>
+            <div className="hidden md:flex">
+              <Link className="font-semibold px-3 border-b border-stone-400" href='/'>Home</Link>
+              {/* <Link href='/exams'>{loggedInUser?.user?.email?.endsWith('@v3.admin') ? 'Admin dashboard' : 'My exams'}</Link> */}
+              <Link className="font-semibold px-3 border-b border-stone-400" href='/exams'>Exams</Link> 
+              <Link className="font-semibold px-3 border-b border-stone-400" href='/about/extra'>Candidates</Link>
+              <Link className="font-semibold px-3 border-b border-stone-400" href='/map'>Map</Link>
             </div>
             {/* login/signup */}
             {!loggedInUser.user.name && <div className="flex flex-start">
@@ -61,7 +60,7 @@ return(
             
             {/*Logged in user*/}
             {loggedInUser.user.name && <div className="flex flex-start">
-            <Link href='#' className="hidden md:block p-2 mr-4 rounded-full">Hi, {loggedInUser.user.name}</Link>
+            <Link href='#' className="hidden md:block p-2 mr-4 rounded-full">Hi, {loggedInUser.user.name}.</Link>
             <button onClick={handleLogout} className="hidden md:block p-2 px-3 rounded-lg text-stone-200 bg-gray-800">Logout</button>
             </div>}
 
