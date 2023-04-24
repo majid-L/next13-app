@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useContext, useEffect } from "react";
-import { GlobalContext } from "../context/store";
+import { useState } from "react";
 import axios from 'axios';
 import Spinner from "../components/Spinner";
 
@@ -16,28 +15,18 @@ const [errMsg, setErrMsg] = useState('');
 const [successMsg, setSuccessMsg] = useState('');
 const [isLoading, setIsLoading] = useState(false);
 
-const {loggedInUser, setLoggedInUser, userDetails, setUserDetails} = useContext(GlobalContext);
-
-useEffect(() => {
-  if (loggedInUser) {
-    window.localStorage.setItem('EXAM_APP', loggedInUser);
-  }
-}, [loggedInUser]);
-
-useEffect(() => {
-  setLoggedInUser(window.localStorage.getItem('EXAM_APP'));
-}, []);
-
 const handleSubmit = async e => {
   e.preventDefault();
   setIsLoading(true);
   setSuccessMsg(false);
   signup(name, email, password, passwordConf)
-  .then(res => {
-    setLoggedInUser(res.user.name);
-    setAuthToken(res.token);
+  .then(() => {
     setIsLoading(false);
     setSuccessMsg(true);
+    setEmail('');
+    setPassword('');
+    setPasswordConf('');
+    setName('');
   })
   .catch(err => {
     setIsLoading(false);
