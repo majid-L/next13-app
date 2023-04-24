@@ -36,7 +36,7 @@ return(
     <header>
     {/* Navbar */}
       <div className="w-full bg-stone-300 bg-anim shadow-bottom">
-      <nav className="relative container mx-auto p-6">
+      <nav className="relative container mx-auto p-6 pb-0">
         {/* Flex container */}
         <div className="flex items-center justify-between">
             {/* logo */}
@@ -46,11 +46,10 @@ return(
             </div>
             {/* menu items */}
             <div className="hidden md:flex">
-              <Link className="font-semibold px-3 border-b border-stone-400" href='/'>Home</Link>
-              {/* <Link href='/exams'>{loggedInUser?.user?.email?.endsWith('@v3.admin') ? 'Admin dashboard' : 'My exams'}</Link> */}
-              <Link className="font-semibold px-3 border-b border-stone-400" href='/exams'>Exams</Link> 
-              <Link className="font-semibold px-3 border-b border-stone-400" href='/about/extra'>Candidates</Link>
-              <Link className="font-semibold px-3 border-b border-stone-400" href='/map'>Map</Link>
+              <Link className="font-semibold px-3 pb-2 border-b border-stone-400" href='/'>Home</Link>
+              <Link className="font-semibold px-3 pb-2 border-b border-stone-400" href='/exams'>Exams</Link> 
+              <Link className="font-semibold px-3 pb-2 border-b border-stone-400" href='/candidates'>Candidates</Link>
+              <Link className="font-semibold px-3 pb-2 border-b border-stone-400" href='/map'>Map</Link>
             </div>
             {/* login/signup */}
             {!loggedInUser.user.name && <div className="flex flex-start">
@@ -74,14 +73,12 @@ return(
         {/* mobile menu */}
         <div className={`${!showMenu && 'hidden'} md:hidden`}>
           <div className="absolute flex flex-col -top-2 items-center self-end py-8 mt-10 space-y-6 bg-white sm:w-auto sm:self-center left-6 right-6 shadow-lg shadow-pink-500/40 border border-slate-300 rounded-lg">
-            <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/login'>Login</Link>
-            <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/signup'>Signup</Link>
+            {!loggedInUser && <><Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/login'>Login</Link>
+            <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/signup'>Signup</Link></>}
             <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/'>Home</Link>
-            <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/about'>About</Link>
-            <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/about/extra'>Extra</Link>
-            <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/github/projects'>Projects</Link>
-            {/* <Link href='/github/projects' className="responsive-menu">Contacts</Link>
-            <Link className="responsive-menu">Extra</Link> */}
+            <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/exams'>Exams</Link>
+            <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/candidates'>Candidates</Link>
+            <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/map'>Map</Link>
         </div>
         </div>
     </nav>
@@ -89,6 +86,10 @@ return(
     {logoutNotification && 
       <div className="w-full bg-green-200 text-center">{logoutNotification}
     </div>}
+
+    <div className="flex ml-6 pb-2\">
+        <p className="text-xs p-0 mr-1 float-left">Logged in as <span className="font-bold">admin</span></p>
+        <img src='/images/gear.svg'/></div>
 
     </div>
     </header>);
