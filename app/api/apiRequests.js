@@ -40,3 +40,13 @@ export const searchByName = (loggedInUser, string) => {
   return axios.get(`${baseUrl}/exams/search/${string}`, requestHeaders(loggedInUser))
   .then(({data}) => data);
 }
+
+export const searchByLocation = (loggedInUser, string) => {
+  return axios.get(`${baseUrl}/exams?location=${string}`, requestHeaders(loggedInUser))
+  .then(({data}) => data);
+}
+
+export const searchByDate = (loggedInUser, string) => {
+  return axios.get(`${baseUrl}/exams?date=${string}`, requestHeaders(loggedInUser))
+  .then(({data}) => data);
+}
