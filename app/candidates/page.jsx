@@ -4,6 +4,7 @@ import { GlobalContext } from "../context/store";
 import { getCandidates } from '../api/apiRequests';
 import Spinner from '../components/Spinner';
 import Link from "next/link";
+import BackToTopButton from "../components/BackToTopButton";
 
 // Candidates are referred to as "users" in the API
 const CandidatesPage = () => {
@@ -41,6 +42,7 @@ return (<main className="text-center pb-20 mx-auto w-11/12 sm:w-5/6">
         </div>
     </div>
   })}</div>}
+  {candidates.length > 0 && <BackToTopButton />}
 </main>);
 };
 
