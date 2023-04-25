@@ -34,6 +34,56 @@ canvas {
   height: 55px !important;
 }
 
+.react-calendar {
+  margin: 10px auto 16px;
+  border-radius: 10px;
+  border: 1px solid rgb(65, 61, 61);
+  box-shadow: 0 0 17px 1px #e73c7e;
+  font-size: 12px;
+
+}
+
+.react-calendar__navigation__label__labelText {
+  font-size: 15px;
+}
+
+.react-calendar__navigation__label {
+  background-color: black !important;
+  color: whitesmoke
+}
+
+.react-calendar__navigation__arrow {
+  background-color: black !important;
+  color: whitesmoke;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  font-size: 20px;
+  color: #e73c7e
+}
+
+.react-calendar__navigation {
+  background-color: black !important;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.react-calendar__tile {
+  padding: 7px;
+  border-radius: 10px;
+}
+
+.react-calendar__tile:hover {
+  border-radius: 10px;
+}
+
+.react-calendar__tile:active {
+  color: #e73c7e !important;
+}
+
+.--calendar-desc{
+  max-width: 720px
+}
+
 @keyframes gradient {
   0% {
       background-position: 0% 50%;
@@ -88,8 +138,4 @@ canvas {
 
 .open .tripline-bottom {
   transform: rotate(-45deg) translateY(6px) translate(-6px);
-}
-
-.responsive-menu {
-  @apply absolute flex flex-col items-center self-end py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md
 }
