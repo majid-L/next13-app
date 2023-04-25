@@ -39,8 +39,10 @@ canvas {
   border-radius: 10px;
   border: 1px solid rgb(65, 61, 61);
   box-shadow: 0 0 17px 1px #e73c7e;
-  font-size: 12px;
+}
 
+.react-calendar__viewContainer {
+  padding: 4px;
 }
 
 .react-calendar__navigation__label__labelText {
@@ -65,22 +67,29 @@ canvas {
   background-color: black !important;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  margin-bottom: 0
 }
 
 .react-calendar__tile {
   padding: 7px;
-  border-radius: 10px;
+  border: 1px solid rgb(246, 239, 239) !important;
+  font-size: 14px;
+  border-radius: 6px;
 }
 
-.react-calendar__tile:hover {
-  border-radius: 10px;
+.exam-dates {
+  background-color: #e73c7e63 !important;
 }
+
+/* .react-calendar__tile:hover {
+  border-radius: 10px;
+} */
 
 .react-calendar__tile:active {
   color: #e73c7e !important;
 }
 
-.--calendar-desc{
+.--max-w-720{
   max-width: 720px
 }
 
