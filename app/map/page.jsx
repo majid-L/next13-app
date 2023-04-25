@@ -1,5 +1,5 @@
 'use client';
-import { useState, useContext, useEffect, useMemo, useLayoutEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { GlobalContext } from "../context/store";
 import { getExams } from '../api/apiRequests';
 import React from "react";
@@ -45,9 +45,9 @@ useEffect(() => {
 }, []);
 
 return (
-<main className="pb-20">
-  <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-20 mx-4">Viewing all exam locations</h1>
-  <p className="text-center text-stone-100 mt-2 mb-16 mx-4 md:text-xl">You can zoom and select different view styles.To view information on a specific exam, click on its icon.</p>
+<main>
+  <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-12 mx-4">Viewing all exam locations</h1>
+  <p className="text-center text-stone-100 mt-4 mb-16 mx-4 md:text-xl">You can zoom and select different view styles.To view information on a specific exam, click on its icon.</p>
 
   {isLoading && <Spinner/>}
 
