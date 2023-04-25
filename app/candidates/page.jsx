@@ -23,9 +23,9 @@ useEffect(() => {
   });
 }, []);
 
-return (<main className="text-center mt-20 pb-20 mx-auto w-11/12 sm:w-5/6">
-  <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-20">Viewing all candidates</h1>
-  <p className="text-center text-stone-100 mt-2 mb-16 md:text-xl">To see all current exams for a specific candidate, click on the link in the candidate's information section.</p>
+return (<main className="text-center pb-20 mx-auto w-11/12 sm:w-5/6">
+  <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-12">Viewing all candidates</h1>
+  <p className="text-center text-stone-100 mt-4 mb-16 md:text-xl">To see all current exams for a specific candidate, click on the link in the candidate's information section.</p>
   {isLoading ? <Spinner /> : candidates && <div className="grid grid-cols-fluid max-w-6xl m-auto">
     {candidates.map(({id, name, email}) => {
       return <div key={id} className="py-2">
