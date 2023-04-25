@@ -44,7 +44,7 @@ if (confirmationMsg) {
 // Fetch exam data in response to change in name/location/date/month/page/limit
 useEffect(() => {
   setIsLoading(true);
-  getExams(loggedInUser, candidateName, location, formatDateString(), month, year, limit, pageControl)
+  getExams(loggedInUser, candidateName, location, formatDateString(date), month, year, limit, pageControl)
   .then(({exams, meta : { current_page: page, last_page: pageCount, total }, links : { prev, next }}) => {
     setIsLoading(false);
     setExams(exams);
@@ -76,6 +76,7 @@ const handleChange = ({ target : { value }}) => {
 
 // Handle change in selected month/date
 const handleMonthChange = e => {
+  setDate(null);
   setMonth(e.getMonth() + 1);
   setYear(e.getFullYear());
 }
@@ -88,13 +89,25 @@ const resetDateFilter = () => {
 }
 
 // Helper function to format date string
-const formatDateString = () => {
+const formatDateString = date => {
   if (!date) return null;
   if (typeof(date) === 'object') {
     const dayStr = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
     const monthStr = date.getMonth() < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
     return `${date.getFullYear()}-${monthStr}-${dayStr}`;
   }
+}
+
+// Highlight dates with scheduled exams
+const highlightExamDates = ({ view, date }) => {
+  console.log(e);
+ /* if (!exams) return;
+  const examDates = exams.map(({date}) => formatDateString(date));
+  
+  exams.forEach(({date}) => {
+
+  })
+  return true ? "exam-dates" : "";*/
 }
 
 // Handle page navigation
@@ -137,7 +150,7 @@ return (
   </div>
 
   {/* Calendar */}
-  <Calendar onChange={setDate} onClickMonth={handleMonthChange}/>
+  <Calendar onChange={setDate} onClickMonth={handleMonthChange} tileClassName={highlightExamDates}/>
   <button onClick={resetDateFilter} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-950/80 w-56 px-3 py-1 mb-4 rounded-md">Remove date filter</button>
 
   <div className="flex flex-col items-center lg:flex-row sm:justify-center">
