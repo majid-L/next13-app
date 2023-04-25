@@ -24,8 +24,8 @@ useEffect(() => {
 
 return (
 <main>
-  <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-20">Viewing exam session: {exam.title}</h1>
-  <p className="text-center text-stone-100 mt-2 mb-16 mx-4 md:text-xl">To see all exams for {exam.candidateName}, click on the link below.</p>
+  <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-12">Viewing exam session: {exam.title}</h1>
+  <p className="text-center text-stone-100 mt-4 mb-16 mx-4 md:text-xl">To see all exams for {exam.candidateName}, click on the link below.</p>
 
 {isLoading ? <Spinner/> : <div className="bg-white border-1 border-gray-700 shadow-lg shadow-pink-300/40 overflow-hidden rounded-lg w-11/12 max-w-5xl m-auto">
 <div className="p-6 pb-4 text-gray-900 text-left">
