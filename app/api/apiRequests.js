@@ -11,18 +11,18 @@ const requestHeaders = loggedInUser => {
 
 const baseUrl = 'https://laravel-php-api.vercel.app/public/api';
 
-export const getExams = (loggedInUser, limit) => { 
-  return axios.get(`${baseUrl}/exams?limit=${limit}`, requestHeaders(loggedInUser))
+export const getExams = (loggedInUser, name, location, formattedDate, month, year, limit, page) => {
+  return axios({
+    method: 'get',
+    url: `${baseUrl}/exams`,
+    params: { name, location, date: formattedDate, month, year, limit, page },
+    headers: requestHeaders(loggedInUser).headers
+  })
   .then(({data}) => data);
-};
+}
 
 export const getSingleExam = (loggedInUser, id) => {
   return axios.get(`${baseUrl}/exams/${id}`, requestHeaders(loggedInUser))
-  .then(({data}) => data);
-};
-
-export const getPaginatedList = (loggedInUser, url) => {
-  return axios.get(url, requestHeaders(loggedInUser))
   .then(({data}) => data);
 };
 
@@ -36,17 +36,7 @@ export const getCandidates = loggedInUser => {
   .then(({data}) => data);
 };
 
-export const searchByName = (loggedInUser, string) => {
-  return axios.get(`${baseUrl}/exams/search/${string}`, requestHeaders(loggedInUser))
-  .then(({data}) => data);
-}
-
-export const searchByLocation = (loggedInUser, string) => {
-  return axios.get(`${baseUrl}/exams?location=${string}`, requestHeaders(loggedInUser))
-  .then(({data}) => data);
-}
-
-export const searchByDate = (loggedInUser, string) => {
-  return axios.get(`${baseUrl}/exams?date=${string}`, requestHeaders(loggedInUser))
+export const deleteExam = (loggedInUser, id) => {
+  return axios.delete(`${baseUrl}/exams/${id}`, requestHeaders(loggedInUser))
   .then(({data}) => data);
 }
