@@ -36,7 +36,7 @@ return(
     <header>
     {/* Navbar */}
       <div className="w-full bg-stone-300 bg-anim shadow-bottom">
-      <nav className="relative container mx-auto p-6 pb-0">
+      <nav className="relative container mx-auto p-6 pb-3">
         {/* Flex container */}
         <div className="flex items-center justify-between">
             {/* logo */}
@@ -49,7 +49,6 @@ return(
               <Link className="font-semibold px-3 pb-2 border-b border-stone-400" href='/'>Home</Link>
               <Link className="font-semibold px-3 pb-2 border-b border-stone-400" href='/exams'>Exams</Link> 
               <Link className="font-semibold px-3 pb-2 border-b border-stone-400" href='/candidates'>Candidates</Link>
-              <Link className="font-semibold px-3 pb-2 border-b border-stone-400" href='/map'>Map</Link>
             </div>
             {/* login/signup */}
             {!loggedInUser.user.name && <div className="flex flex-start">
@@ -78,7 +77,6 @@ return(
             <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/'>Home</Link>
             <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/exams'>Exams</Link>
             <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/candidates'>Candidates</Link>
-            <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/map'>Map</Link>
         </div>
         </div>
     </nav>
@@ -86,11 +84,10 @@ return(
     {logoutNotification && 
       <div className="w-full bg-green-200 text-center">{logoutNotification}
     </div>}
-
-    <div className="flex ml-6 pb-2\">
-        <p className="text-xs p-0 mr-1 float-left">Logged in as <span className="font-bold">admin</span></p>
-        <img src='/images/gear.svg'/></div>
-
+    </div>
+    <div className="inline-flex ml-6 mt-4 bg-slate-200 p-3 rounded">
+      <p className="text-sm mr-1 float-left">Logged in as <span className="font-bold">admin</span></p>
+      <img src='/images/gear.svg'/>
     </div>
     </header>);
 };
