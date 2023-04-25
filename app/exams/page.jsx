@@ -1,9 +1,13 @@
 'use client';
-import Exams from '../components/Exams';
+import ExamsList from '../components/ExamsList';
+import ExamsMap from '../components/ExamsMap';
 import { getExams } from '../api/apiRequests';
 import { useEffect, useContext, useState } from 'react';
 import { GlobalContext } from '../context/store';
+import BackToTopButton from '../components/BackToTopButton';
+import userIsAdmin from '../helpers/userIsAdmin';
 import Calendar from 'react-calendar';
+import Link from 'next/link';
 import 'react-calendar/dist/Calendar.css';
 
 const ExamsPage = () => {
@@ -11,6 +15,10 @@ const ExamsPage = () => {
 const [exams, setExams] = useState('');
 const [isLoading, setIsLoading] = useState(false);
 const { loggedInUser } = useContext(GlobalContext);
+const [confirmationMsg, setConfirmationMsg] = useState('');
+
+// View selection
+const [view, setView] = useState('list');
 
 // Pagination states
 const [pageLinks, setPageLinks] = useState({prev: '', next: ''});
@@ -28,6 +36,11 @@ const [date, setDate] = useState(null);
 const [month, setMonth] = useState(null);
 const [year, setYear] = useState(null);
 
+// Scroll up to view confirmation message
+if (confirmationMsg) {
+  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+}
+
 // Fetch exam data in response to change in name/location/date/month/page/limit
 useEffect(() => {
   setIsLoading(true);
@@ -43,12 +56,12 @@ useEffect(() => {
  .catch(() => {
     setIsLoading(false);
  });  
-}, [candidateName, location, date, month, limit, pageControl]);
+}, [candidateName, location, date, month, year, limit, pageControl]);
 
 // Reset results to first page if new query is detected
 useEffect(() => {
   setPageControl(1);
-}, [candidateName, location, date, month, limit]);
+}, [candidateName, location, date, month, year, limit]);
 
 // Handle changes in name/location input field changes
 const handleChange = ({ target : { value }}) => {
@@ -98,16 +111,29 @@ const handleClick = ({ target : { id }}) => {
 
 return (
 <main className="text-center pb-20 mx-auto w-11/12 sm:w-5/6">
-  <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-12">Viewing all exams</h1>
-  <p className="text-center text-stone-100 mt-4 mb-16 md:text-xl">To see all exams for a specific student, click on an exam and you will be taken to the relevant page.</p>
+  {/* Confirmation message */}
+  {confirmationMsg && <div className="bg-slate-200 --max-w-720 mx-auto mt-5 rounded-md">
+  <p className="pt-2">{confirmationMsg}</p>
+  <button onClick={() => setConfirmationMsg(false)} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-950/80 px-3 py-1 mt-3 mb-4 rounded-md">Dismiss</button>
+  </div>}
 
-  <div className="--calendar-desc bg-slate-200 w-auto mb-20 mx-auto rounded px-2 pt-2 pb-3">
+  <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-12">{view === 'list' ? 'Viewing all exams' : 'Viewing all exam locations'}</h1>
+  <p className="text-center text-stone-100 mt-4 mb-16 md:text-xl">To see all exams for a specific student, click on an exam and you will be taken to the relevant page. <br/>{view === 'map' && 'When using the map, you can zoom in/out and select different view styles.To view information on a specific exam, hover over its icon and from there you can either go to the exam page, or view more exams for that candidate.'}</p>
+
+  <div className="--max-w-720 bg-slate-200 w-auto mb-10 mx-auto rounded px-2 pt-2 pb-3 shadow-lg shadow-stone-400/80 ">
   <ul>
   <p className="pt-1 mb-1 font-bold">How to filter search results using the calendar</p>
   <li className="pt-1 text-left px-3 mb-1">To view all exams taking place on a specific day, simply navigate to the correct day in the calendar view and click on it.</li>
   <li className="pt-1 text-left px-3 mb-1">To view all exams taking place on a specific month, click on the banner at the top of the calendar to bring up the monthly view. From there, you can select the desired year and month and the results will filter accordingly.</li>
   <li className="pt-1 text-left px-3">To reset all date filters, click on the button below the calendar.</li>
   </ul>
+  </div>
+
+  {/* list/map view */}
+  <div className="flex --max-w-720 w-auto mx-auto">
+  <button id="prev" onClick={() => setView('list')} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-600/80 grow px-3 py-1 mb-8 rounded-md">View as list</button>
+  <button id="next" onClick={() => setView('map')} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-600/80 grow px-3 py-1 mx-2 mb-8 rounded-md">View as map</button>
+  {userIsAdmin(loggedInUser) && <Link href='/exams/new' className="bg-orange-300 border-1 border-gray-500 shadow-lg shadow-yellow-500/50 grow px-3 py-1 mb-8 rounded-md">Add new exam</Link>}
   </div>
 
   {/* Calendar */}
@@ -143,11 +169,21 @@ return (
     <option>30</option>
     <option>40</option>
     <option>100</option>
+    <option>250</option>
   </select>
   </div>
   </div>
 
-  {Array.isArray(exams) && !exams.length ? <p className="text-slate-200 mt-4">No matching results.</p> : <Exams exams={exams} isLoading={isLoading}/>}
+  {/* Conditionally render map or list */}
+  {Array.isArray(exams) && !exams.length ? 
+  <div className="bg-red-400 w-56 rounded p-3 flex mx-auto mt-8">
+    <img src="/images/x-circle-fill.svg"/>
+    <p className="ml-4">No matching results.</p>
+  </div> 
+  : view === 'list' ? <ExamsList loggedInUser={loggedInUser} exams={exams} setExams={setExams} isLoading={isLoading} setConfirmationMsg={setConfirmationMsg}/>
+  : <ExamsMap exams={exams} isLoading={isLoading}/>}
+
+  {exams.length > 0 && <BackToTopButton />}
 </main>
 );
 };
