@@ -14,6 +14,7 @@ const [examDetails, setExamDetails] = useState({
     candidate_id: '',
     candidate_name: '',
     date: '',
+    time: '',
     location_name: ''
 });
 const [newExamId, setNewExamId] = useState(0);
@@ -27,6 +28,7 @@ const handleSubmit = e => {
     setIsLoading(true);
     postExam(loggedInUser, {
         ...examDetails, 
+        date: `${examDetails.date} ${examDetails.time}:00`,
         longitude: faker.address.longitude(),
         latitude: faker.address.latitude()
     })
@@ -38,7 +40,9 @@ const handleSubmit = e => {
     })
     .catch(({response : { data }}) => {
         setIsLoading(false);
-        if (data.message) {
+        if (data.msg) {
+          setErrMsg(data.msg);
+        } else if (data.message) {
           setErrMsg(data.message);
         } else {
           setErrMsg("Exam could not be added. Try again later.")
@@ -66,6 +70,10 @@ return (<main>
     <div className="mt-4">
     <label className="block mb-2">Exam date</label>
     <input required type="date" onChange={e => setExamDetails(prev => ({...prev, date: e.target.value}))} value={examDetails.date} className="h-9 p-2 w-full rounded-md border border-stone-400"/>
+    </div>
+    <div className="mt-4">
+    <label className="block mb-2">Exam time</label>
+    <input required type="time" onChange={e => setExamDetails(prev => ({...prev, time: e.target.value}))} value={examDetails.time} className="h-9 p-2 w-full rounded-md border border-stone-400"/>
     </div>
     <div className="mt-4">
     <label className="block mb-2">Exam description</label>
