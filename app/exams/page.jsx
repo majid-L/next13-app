@@ -1,125 +1,152 @@
 'use client';
 import Exams from '../components/Exams';
-import { getPaginatedList, getExams, searchByName, searchByLocation, searchByDate } from '../api/apiRequests';
+import { getExams } from '../api/apiRequests';
 import { useEffect, useContext, useState } from 'react';
 import { GlobalContext } from '../context/store';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
 const ExamsPage = () => {
-  // States concerned with fetching of exam data
+// States concerned with fetching of exam data
 const [exams, setExams] = useState('');
 const [isLoading, setIsLoading] = useState(false);
-const [pageLinks, setPageLinks] = useState({prev: '', next: ''});
-const [currentPage, setCurrentPage] = useState(1);
 const { loggedInUser } = useContext(GlobalContext);
 
-// States concerned with filters/queries
-const [filter, setFilter] = useState('Name');
-const [candidateName, setCandidateName] = useState('');
-const [location, setLocation] = useState('');
-const [date, setDate] = useState('');
+// Pagination states
+const [pageLinks, setPageLinks] = useState({prev: '', next: ''});
+const [pageControl, setPageControl] = useState(1);
+const [currentPage, setCurrentPage] = useState(1);
+const [limit, setLimit] = useState(30);
+const [totalPages, setTotalPages] = useState('');
+const [totalResults, setTotalResults] = useState('');
 
-// Helper function to format URL string ready for axios request
-const transformUrl = (buttonId, pageLinks) => {
-  return buttonId === 'prev' ? 
-    pageLinks.prev.slice(pageLinks.prev.indexOf('laravel')) 
-    : pageLinks.next.slice(pageLinks.next.indexOf('laravel'));
-}
+// States concerned with query parameters
+const [query, setQuery] = useState('Name');
+const [candidateName, setCandidateName] = useState(null);
+const [location, setLocation] = useState(null);
+const [date, setDate] = useState(null);
+const [month, setMonth] = useState(null);
+const [year, setYear] = useState(null);
 
-// Initial data fetch
+// Fetch exam data in response to change in name/location/date/month/page/limit
 useEffect(() => {
   setIsLoading(true);
-    getExams(loggedInUser, 30)
-    .then(({exams, links : { prev, next }}) => {
-      setIsLoading(false);
-      setExams(exams);
-      setPageLinks({prev, next});
-   })
-   .catch(() => {
-      setIsLoading(false);
-   });
-}, []);
-
-// Filter by name or location
-useEffect(() => {
-  if (!candidateName && !location) return;
-  setIsLoading(true);
-  const apiRequestFunction = filter === 'Name' ? searchByName : searchByLocation;
-  const filterArgument = filter === 'Name' ? candidateName : location;
-  apiRequestFunction(loggedInUser, filterArgument)
-  .then(({exams}) => {
-    setIsLoading(false);
-    setExams(exams);
-  })
-  .catch(() => {
-    setIsLoading(false);
-  });
-}, [candidateName, location]);
-
-// Filter by date
-useEffect(() => {
-  if (!date) return;
-  setIsLoading(true);
-  const isoDate = date.toISOString().split('T')[0];
-  console.log(isoDate);
-  searchByDate(loggedInUser, isoDate)
-  .then(({exams}) => {
-    setIsLoading(false);
-    setExams(exams);
-  })
-  .catch(() => {
-    setIsLoading(false);
-  });
-}, [date]);
-
-// Pagination logic
-const handleClick = ({ target : { id }}) => {
-  if (id === 'prev' && !pageLinks.prev) return;
-  if (id === 'next' && !pageLinks.next) return;
-  setIsLoading(true);
-  getPaginatedList(loggedInUser, 'https://' + transformUrl(id, pageLinks))
-  .then(({exams, meta : { current_page: page }, links : { prev, next }}) => {
+  getExams(loggedInUser, candidateName, location, formatDateString(), month, year, limit, pageControl)
+  .then(({exams, meta : { current_page: page, last_page: pageCount, total }, links : { prev, next }}) => {
     setIsLoading(false);
     setExams(exams);
     setPageLinks({prev, next});
     setCurrentPage(page);
+    setTotalPages(pageCount);
+    setTotalResults(total);
  })
  .catch(() => {
     setIsLoading(false);
- });
+ });  
+}, [candidateName, location, date, month, limit, pageControl]);
+
+// Reset results to first page if new query is detected
+useEffect(() => {
+  setPageControl(1);
+}, [candidateName, location, date, month, limit]);
+
+// Handle changes in name/location input field changes
+const handleChange = ({ target : { value }}) => {
+  if (query === 'Name') {
+    setCandidateName(value);
+    setLocation(null);
+  } else {
+    setLocation(value);
+    setCandidateName(null);
+  }
+}
+
+// Handle change in selected month/date
+const handleMonthChange = e => {
+  setMonth(e.getMonth() + 1);
+  setYear(e.getFullYear());
+}
+
+// Reset date/month filter
+const resetDateFilter = () => {
+  setDate(null);
+  setMonth(null);
+  setYear(null);
+}
+
+// Helper function to format date string
+const formatDateString = () => {
+  if (!date) return null;
+  if (typeof(date) === 'object') {
+    const dayStr = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    const monthStr = date.getMonth() < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+    return `${date.getFullYear()}-${monthStr}-${dayStr}`;
+  }
+}
+
+// Handle page navigation
+const handleClick = ({ target : { id }}) => {
+  if (id === 'prev') {
+    if (!pageLinks.prev) return;
+    setPageControl(pageControl - 1);
+  }
+  if (id === 'next'){
+    if (!pageLinks.next) return;
+    setPageControl(pageControl + 1);
+  }
 }
 
 return (
-<main className="text-center mt-20 pb-20 mx-auto w-11/12 sm:w-5/6">
-  <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-20">Viewing all exams</h1>
+<main className="text-center pb-20 mx-auto w-11/12 sm:w-5/6">
+  <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-12">Viewing all exams</h1>
   <p className="text-center text-stone-100 mt-4 mb-16 md:text-xl">To see all exams for a specific student, click on an exam and you will be taken to the relevant page.</p>
 
-  {/* Calendar */}
-  <div className="flex">
-  <Calendar onChange={setDate} value={date}/>
+  <div className="--calendar-desc bg-slate-200 w-auto mb-20 mx-auto rounded px-2 pt-2 pb-3">
+  <ul>
+  <p className="pt-1 mb-1 font-bold">How to filter search results using the calendar</p>
+  <li className="pt-1 text-left px-3 mb-1">To view all exams taking place on a specific day, simply navigate to the correct day in the calendar view and click on it.</li>
+  <li className="pt-1 text-left px-3 mb-1">To view all exams taking place on a specific month, click on the banner at the top of the calendar to bring up the monthly view. From there, you can select the desired year and month and the results will filter accordingly.</li>
+  <li className="pt-1 text-left px-3">To reset all date filters, click on the button below the calendar.</li>
+  </ul>
   </div>
 
-  <div className="flex flex-col items-center sm:flex-row sm:justify-center">
-  {/* filter by location/search by name */}
-  <div className="bg-slate-200 mb-3 mx-3 px-2 w-52 rounded">
+  {/* Calendar */}
+  <Calendar onChange={setDate} onClickMonth={handleMonthChange}/>
+  <button onClick={resetDateFilter} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-950/80 w-56 px-3 py-1 mb-4 rounded-md">Remove date filter</button>
+
+  <div className="flex flex-col items-center lg:flex-row sm:justify-center">
+  {/* filter by location/name */}
+  <div className="bg-slate-200 mb-3 mx-3 px-2 w-56 rounded">
   <div className="flex justify-evenly">
   <p className="pt-1 mt-1">Filter by:</p>
-  <select onChange={e => setFilter(e.target.value)} value={filter} className="mt-1.5 bg-gray-100 border-2 border-gray-300 rounded p-0.5">
+  <select onChange={e => setQuery(e.target.value)} value={query} className="mt-1.5 bg-gray-100 border-2 border-gray-300 rounded p-0.5">
     <option>Name</option>
     <option>Location</option>
   </select>
   </div>
-  <input onChange={e => filter === 'Name' ? setCandidateName(e.target.value) : setLocation(e.target.value)} value={filter === 'Name' ? candidateName : location} type="text" placeholder="Begin typing" className="my-2 w-48 p-1 rounded"/>
+  <input onChange={handleChange} value={query === 'Name' ? candidateName : location} type="text" placeholder="Begin typing" className="my-2 w-full p-1 rounded"/>
   </div>
 
-  {/* pagination */}
-  <div className="bg-slate-200 w-52 mb-3 mx-3 rounded px-2 py-1">
-  <p className="pt-1">Current page: {currentPage}</p>
-  <button id="prev" onClick={handleClick} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-950/80 px-5 py-1 m-2 rounded-md">Prev</button>
-  <button id="next" onClick={handleClick} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-950/80 px-5 py-1 m-2 rounded-md">Next</button>
+  {/* page controls */}
+  <div className="bg-slate-200 w-56 mb-3 mx-3 rounded px-2 py-1">
+  <p className="pt-1">Page: {totalResults ? currentPage : 1}{totalPages && ` of ${totalPages}`} {totalResults ? `(${totalResults} results)` : '(0 results)'}</p>
+  <button id="prev" onClick={handleClick} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-950/80 px-3 py-1 m-2 rounded-md">Prev</button>
+  <button id="next" onClick={handleClick} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-950/80 px-3 py-1 m-2 rounded-md">Next</button>
+  </div>
+
+  {/* set page limit */}
+  <div className="bg-slate-200 w-56 mb-3 mx-3 rounded px-2 py-1">
+  <p className="pt-1 pb-1">Results per page</p>
+  <select onChange={e => setLimit(e.target.value)} value={limit} className="mt-1.5 p-1 w-1/2 bg-gray-100 border-2 border-gray-300 rounded mb-1">
+    <option>10</option>
+    <option>20</option>
+    <option>30</option>
+    <option>40</option>
+    <option>100</option>
+  </select>
   </div>
   </div>
+
   {Array.isArray(exams) && !exams.length ? <p className="text-slate-200 mt-4">No matching results.</p> : <Exams exams={exams} isLoading={isLoading}/>}
 </main>
 );
