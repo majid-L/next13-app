@@ -64,13 +64,13 @@ function BingMapsReact(_ref) {
         var _pushPin$infobox;
         
         infobox.setOptions(_objectSpread({
-          title: e.target.metadata.description,
+          title: e.target.metadata.candidateName,
           description: e.target.metadata.id,
           htmlContent: ((_pushPin$infobox = pushPin.infobox) === null || _pushPin$infobox === void 0 ? void 0 : _pushPin$infobox.infoboxHtml) || pushPin.infoboxHtml,
           location: newPin.getLocation(),
           visible: true,
           actions: [{
-            label: 'Go to exam page',
+            label: `Go to exam page (${e.target.metadata.title})`,
             eventHandler: () => router.push(`/exams/${e.target.metadata.id}`)
           }, {
             label: 'Go to candidate\'s page',
