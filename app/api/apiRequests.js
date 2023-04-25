@@ -40,3 +40,13 @@ export const deleteExam = (loggedInUser, id) => {
   return axios.delete(`${baseUrl}/exams/${id}`, requestHeaders(loggedInUser))
   .then(({data}) => data);
 }
+
+export const postExam = (loggedInUser, newExam) => {
+  return axios({
+    method: 'post',
+    url: `${baseUrl}/exams`,
+    headers: requestHeaders(loggedInUser).headers,
+    data: newExam
+  })
+  .then(({data}) => data);
+}
