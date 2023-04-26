@@ -2,7 +2,9 @@
 
 Welcome to this Next13 application! Let's first dive into the main features of this project.
 
+<br></br>
 <img src='./public/images/next.svg' width=300>
+<br></br>
  
 ## Key product features
 
