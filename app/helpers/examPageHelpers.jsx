@@ -42,7 +42,7 @@ export const formatDateString = date => {
 
 // Highlight dates with scheduled exams
 export const highlightExamDates = (examsSet) => {
- return ({ view, date }) => {
+ return ({ date }) => {
     if (examsSet.has(formatDateString(date))) return "exam-dates";
 }
 }

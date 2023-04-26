@@ -4,7 +4,6 @@ import { useState, useContext } from "react";
 import { GlobalContext } from "../context/store";
 import axios from "axios";
 
-// we want this to show on every page, so we will bring it into the layout, not the home page
 const Header = () => {
 const [showMenu, setShowMenu] = useState(false);
 const [logoutNotification, showLogoutNotification] = useState('');
@@ -85,8 +84,8 @@ return(
       <div className="w-full bg-green-200 text-center">{logoutNotification}
     </div>}
     </div>
-    <div className="inline-flex ml-6 mt-4 bg-slate-200 p-3 rounded">
-      <p className="text-sm mr-1 float-left">Logged in as <span className="font-bold">admin</span></p>
+    <div className="flex w-fit ml-6 mt-4 bg-slate-200 p-3 rounded">
+      <p className="text-sm mr-1">Logged in as <span className="font-bold">admin</span></p>
       <img src='/images/gear.svg'/>
     </div>
     </header>);

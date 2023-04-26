@@ -138,7 +138,7 @@ return (
   </section>}
 
   {/* Conditionally render map or list */}
-  {exams.length === 0 && !errorMsg.value ? 
+  {exams.length === 0 && !errorMsg.value && !isLoading ? 
   <>
   <div className="bg-red-400 w-56 rounded p-3 flex mx-auto mt-8">
     <img src="/images/x-circle-fill.svg"/>

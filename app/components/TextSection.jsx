@@ -1,6 +1,6 @@
 const TextSection = view => {
   return (<section>
-    <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-12">{view === 'list' ? 'Viewing all exams' : 'Viewing all exam locations'}</h1>
+    <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-12 text-shadow-sm">{view === 'list' ? 'Viewing all exams' : 'Viewing all exam locations'}</h1>
     <p className="text-center text-stone-100 mt-4 mb-16 md:text-xl">To see all exams for a specific student, click on an exam and you will be taken to the relevant page. <br/>{view === 'map' && 'When using the map, you can zoom in/out and select different view styles.To view information on a specific exam, hover over its icon and from there you can either go to the exam page, or view more exams for that candidate.'}</p>
   
     <div className="--max-w-720 bg-slate-200 w-auto mb-10 mx-auto rounded px-2 pt-2 pb-3 shadow-lg shadow-stone-400/80 ">
