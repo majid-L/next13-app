@@ -2,6 +2,8 @@
 
 Welcome to this Next13 application! Let's first dive into the main features of this project.
 
+<img src='./public/images/next.svg' width=300>
+ 
 ## Key product features
 
 - Mobile-first design.
@@ -22,7 +24,16 @@ Welcome to this Next13 application! Let's first dive into the main features of t
 First, ensure that you have the latest versions of Node.js and npm (or yarn/pnpm) installed on your local machine.
 
 1) Fork and clone the repository.
-2) cd into the repository and run this command to start the development server:
+2) cd into the repository and install project dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3) Run this command to start the development server:
 
 ```bash
 npm run dev
@@ -32,8 +43,8 @@ yarn dev
 pnpm dev
 ```
 
-3) Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-4) You can edit the application by modifying any of the functional components located in ./app and the webpage auto-updates as you edit the file.
+4) Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5) You can edit the application by modifying any of the functional components located in ./app and the webpage auto-updates as you edit the file.
 
 [http://localhost:3000/api/hello](http://localhost:3000/api/hello) is an endpoint that uses [Route Handlers](https://beta.nextjs.org/docs/routing/route-handlers). This endpoint can be edited in `app/api/hello/route.js`.
 
@@ -51,5 +62,14 @@ The exams page contains a map which shows a live view of exams which can be filt
 <sub><sup>(Never mind that some of those exams are taking place right in the middle of an ocean - the longitude/latitude data was generated automatically!)
 
 <img src='./public/images/map.png' width=500>
+
+## Main libraries used for this project
+Library | Purpose
+--- | ---
+Next | React framework
+Bing Maps - React | Based on Microsoft's Bing Maps V8 Web Control
+Tailwind CSS | Styling
+React-Calendar | Date visualisation and filtering
+Axios | API requests
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
