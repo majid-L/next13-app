@@ -81,16 +81,29 @@ canvas {
   background-color: #e73c7e63 !important;
 }
 
-/* .react-calendar__tile:hover {
-  border-radius: 10px;
-} */
-
 .react-calendar__tile:active {
   color: #e73c7e !important;
 }
 
 .--max-w-720{
   max-width: 720px
+}
+
+.svg {
+  display: 'block';
+  margin: '50px auto 0';
+  height: '150px';
+  width: '150px';
+  color: #e73c7e
+}
+
+.text-shadow {
+  text-shadow: 5px 5px 4px #e73c7e;
+}
+
+.text-shadow-sm {
+  text-shadow: 4px 4px 7px #e73c7e;
+  line-height: 60px !important
 }
 
 @keyframes gradient {
@@ -147,4 +160,15 @@ canvas {
 
 .open .tripline-bottom {
   transform: rotate(-45deg) translateY(6px) translate(-6px);
+}
+
+.home-card {
+  @apply flex flex-col md:flex-row justify-between items-center my-4 bg-slate-200 p-6 rounded-xl shadow-lg shadow-rose-400/70
+}
+
+@media(max-width: 300px){
+  .svg {
+    width: 80px !important;
+    height: 80px !important
+  }
 }
