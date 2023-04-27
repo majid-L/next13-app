@@ -15,8 +15,6 @@ Welcome to this Next13 CRUD application! Let's first talk about how to get start
 3) On the 'Exams' page, you can toggle between list/map view, filter, paginate and sort.
 4) On the 'Exams' page, you can higlight exam days by clicking on the black banner at the top of the calendar and selecting a specific month.
 
-<br></br>
- 
 Now let's dive into the main features of this project.
 
 ## Key product features
@@ -34,7 +32,6 @@ Now let's dive into the main features of this project.
 - Uses several new features realeased in Next 13 such as the App router (a file-based routing system) and custom loading/404/error pages.
 - Production build deployed on Vercel's serverless platform.
 
-<br></br>
 
 ## Running the project in your local environment.
 
@@ -80,7 +77,6 @@ To use the maps API in your local environment, you will need your own private ke
 
 And that's all you have to do! You should now have access to the Bing Maps API and eveyrthing should work correctly.
 
-<br></br>
 
 ## Main libraries used for this project
 Library | Purpose
@@ -91,7 +87,6 @@ Tailwind CSS | Styling
 React-Calendar | Date visualisation and filtering
 Axios | API requests
 
-<br></br>
 
 ## Screeenshots
 The exams page contains a map which shows a live view of exams which can be filtered and paginated. Hovering over each pin on the map reveals an infobox with the name of the candidate and the exam, as well as links to the exam page and the rest of that candidate's exams.
@@ -99,8 +94,6 @@ The exams page contains a map which shows a live view of exams which can be filt
 <sub><sup>(Never mind that some of those exams are taking place right in the middle of an ocean - the longitude/latitude data was generated automatically!)
 
 <img src='./public/images/map.png' width=500>
-
-<br></br>
 
 Mobile view:
 
