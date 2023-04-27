@@ -1,10 +1,8 @@
 'use client';
 
 import { useState } from "react";
-import axios from 'axios';
+import { signup } from '../api/apiRequests';
 import Spinner from "../components/Spinner";
-
-const signup = (name, email, password, passwordConf) => axios.post('https://laravel-php-api.vercel.app/public/api/signup', {name, email, password, 'password_confirmation': passwordConf}).then(({data}) => data);
 
 const SignupPage = () => {
 const [name, setName] = useState('');
