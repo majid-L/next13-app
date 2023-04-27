@@ -18,7 +18,7 @@ const [exam, setExam] = useState({date: ''});
 const [refetchData, setRefetchData] = useState(0);
 const [isLoading, setIsLoading] = useState(false);
 const {loggedInUser} = useContext(LoggedInUserContext);
-const [errorMsg, setErrorMsg] = useState({value: '', show: true});
+const [errorMsg, setErrorMsg] = useState({value: '', show: false});
 
 // States concerned with PUT operations
 const [examDetails, setExamDetails] = useState(emptyObject);
@@ -26,6 +26,7 @@ const [confirmationMsg, setConfirmationMsg] = useState('');
 const [updateIsLoading, setUpdateIsLoading] = useState(false);
 
 useEffect(() => {
+    setErrorMsg({value: '', show: false});
     if (!loggedInUser.user?.id) {
         notFound();
       }
