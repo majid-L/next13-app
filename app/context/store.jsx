@@ -1,10 +1,11 @@
 'use client';
 
-import { createContext, useState, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const LoggedInUserContext = createContext({});
-  const LoggedInUserProvider = ({children}) => {
-  const [loggedInUser, setLoggedInUser] = useState({});
+
+const LoggedInUserProvider = ({children}) => {
+  const [loggedInUser, setLoggedInUser] = useState('');
   useEffect(() => {
     setLoggedInUser({ 
         user : 
