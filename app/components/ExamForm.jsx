@@ -22,56 +22,56 @@ const ExamForm = ({handleSubmit, examDetails, setExamDetails, formType}) => {
   <div className="mt-4">
   <div className="flex justify-between">
   <label className="block mb-2">Exam title</label>
-  <div>
+  {formType === 'PUT' && <div>
   <button onClick={() => setShowTitle(true)} className="bg-white border-2 border-gray-500 px-1 rounded" type="button">Show</button>
   <button onClick={() => setShowTitle(false)} className="bg-white border-2 border-gray-500 px-1 ml-1 rounded" type="button">Hide</button>
+  </div>}
   </div>
-  </div>
-  {showTitle && <input required={formType === 'POST'} type="text" onChange={e => setExamDetails(prev => ({...prev, title: e.target.value}))} value={examDetails.title} className="h-9 p-2 w-full rounded-md border border-stone-400"/>}
+  {(showTitle || formType === 'POST') && <input required={formType === 'POST'} type="text" onChange={e => setExamDetails(prev => ({...prev, title: e.target.value}))} value={examDetails.title} className="h-9 p-2 w-full rounded-md border border-stone-400"/>}
   </div>
 
   <div className="mt-4">
   <div className="flex justify-between">
   <label className="block mb-2">Exam date</label>
-  <div>
+  {formType === 'PUT' && <div>
   <button onClick={() => setShowDate(true)} className="bg-white border-2 border-gray-500 px-1 rounded" type="button">Show</button>
   <button onClick={() => setShowDate(false)} className="bg-white border-2 border-gray-500 px-1 ml-1 rounded" type="button">Hide</button>
+  </div>}
   </div>
-  </div>
-  {showDate && <input required={formType === 'POST'} type="date" onChange={e => setExamDetails(prev => ({...prev, date: e.target.value}))} value={examDetails.date} className="h-9 p-2 w-full rounded-md border border-stone-400"/>}
+  {(showDate || formType === 'POST') && <input required={formType === 'POST'} type="date" onChange={e => setExamDetails(prev => ({...prev, date: e.target.value}))} value={examDetails.date} className="h-9 p-2 w-full rounded-md border border-stone-400"/>}
   </div>
 
   <div className="mt-4">
   <div className="flex justify-between">
   <label className="block mb-2">Exam time</label>
-  <div>
+  {formType === 'PUT' && <div>
   <button onClick={() => setShowTime(true)} className="bg-white border-2 border-gray-500 px-1 rounded" type="button">Show</button>
   <button onClick={() => setShowTime(false)} className="bg-white border-2 border-gray-500 px-1 ml-1 rounded" type="button">Hide</button>
+  </div>}
   </div>
-  </div>
-  {showTime && <input required={formType === 'POST'} type="time" onChange={e => setExamDetails(prev => ({...prev, time: e.target.value}))} value={examDetails.time} className="h-9 p-2 w-full rounded-md border border-stone-400"/>}
+  {(showTime || formType === 'POST') && <input required={formType === 'POST'} type="time" onChange={e => setExamDetails(prev => ({...prev, time: e.target.value}))} value={examDetails.time} className="h-9 p-2 w-full rounded-md border border-stone-400"/>}
   </div>
 
   <div className="mt-4">
   <div className="flex justify-between">
   <label className="block mb-2">Exam description</label>
-  <div>
+  {formType === 'PUT' && <div>
   <button onClick={() => setShowDescription(true)} className="bg-white border-2 border-gray-500 px-1 rounded" type="button">Show</button>
   <button onClick={() => setShowDescription(false)} className="bg-white border-2 border-gray-500 px-1 ml-1 rounded" type="button">Hide</button>
+  </div>}
   </div>
-  </div>
-  {showDescription && <input required={formType === 'POST'} type="text" onChange={e => setExamDetails(prev => ({...prev, description: e.target.value}))} value={examDetails.description} className="h-9 p-2 w-full rounded-md border border-stone-400"/>}
+  {(showDescription || formType === 'POST') && <input required={formType === 'POST'} type="text" onChange={e => setExamDetails(prev => ({...prev, description: e.target.value}))} value={examDetails.description} className="h-9 p-2 w-full rounded-md border border-stone-400"/>}
   </div>
 
   <div className="mt-4">
   <div className="flex justify-between">
   <label className="block mb-2">Exam location</label>
-  <div>
+  {formType === 'PUT' && <div>
   <button onClick={() => setShowLocation(true)} className="bg-white border-2 border-gray-500 px-1 rounded" type="button">Show</button>
   <button onClick={() => setShowLocation(false)} className="bg-white border-2 border-gray-500 px-1 ml-1 rounded" type="button">Hide</button>
+  </div>}
   </div>
-  </div>
-  {showLocation && <input required={formType === 'POST'} type="text" onChange={e => setExamDetails(prev => ({...prev, location_name: e.target.value}))} value={examDetails.location_name} className="h-9 p-2 w-full rounded-md border border-stone-400"/>}
+  {(showLocation || formType === 'POST') && <input required={formType === 'POST'} type="text" onChange={e => setExamDetails(prev => ({...prev, location_name: e.target.value}))} value={examDetails.location_name} className="h-9 p-2 w-full rounded-md border border-stone-400"/>}
   </div>
 
   <button className="bg-gray-900 text-stone-100 py-2.5 px-5 mt-4 rounded-md active:bg-gray-600">{formType === 'POST' ? 'Add new exam session' : 'Submit updates'}</button>
