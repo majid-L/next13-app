@@ -1,18 +1,23 @@
 'use client';
 import { useState, useContext, useEffect } from "react";
-import { GlobalContext } from "../context/store";
+import { LoggedInUserContext } from "../context/store";
 import { getCandidates } from '../api/apiRequests';
 import Spinner from '../components/Spinner';
 import Link from "next/link";
 import BackToTopButton from "../components/BackToTopButton";
+import { notFound } from "next/navigation";
+import userIsAdmin from "../helpers/userIsAdmin";
 
 // Candidates are referred to as "users" in the API
 const CandidatesPage = () => {
 const [candidates, setCandidates] = useState('');
 const [isLoading, setIsLoading] = useState(false);
-const { loggedInUser } = useContext(GlobalContext);
+const { loggedInUser } = useContext(LoggedInUserContext);
 
 useEffect(() => {
+  if (!loggedInUser.user?.id || !userIsAdmin(loggedInUser)) {
+    notFound();
+  }
   setIsLoading(true);
   getCandidates(loggedInUser)
   .then(({users}) => {
