@@ -7,7 +7,7 @@ import Spinner from "./Spinner";
 
 const ExamsMap = ({isLoading, exams}) => {
   const [mapWidth, setMapWidth] = useState(800);
-  
+ 
   // Recalculates window width each time it changes (throttled at 30fps)
   const windowWidth = useWindowWidth();
   const mappableExamsAray = exams.map(({latitude, longitude, title, description, candidateId, candidateName, id}) => {
@@ -49,7 +49,7 @@ return (
   {/* Map */}
   {!isLoading && <div className="flex justify-center m-auto mt-4 lg:w-11/12 max-w-screen-lg">
     <BingMapsReact 
-      bingMapsKey="AgWz7lrowQaBmXiXmXXzepTNUmKwZrEs-gTdNUijBoVZDV0bltjdBdVAvHg8gqod" height={`${windowWidth < 460 ? 400 : windowWidth < 660 ? 500 : mapWidth}px`} width={`${windowWidth < 460 ? 500 : windowWidth < 660 ? 600 : mapWidth}px`}
+      bingMapsKey={process.env.API_KEY} height={`${windowWidth < 460 ? 400 : windowWidth < 660 ? 500 : mapWidth}px`} width={`${windowWidth < 460 ? 500 : windowWidth < 660 ? 600 : mapWidth}px`}
       mapOptions={{
         navigationBarMode: "square",
       }}
