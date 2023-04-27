@@ -25,7 +25,7 @@ const handleDelete = id => {
 };
 
 return isLoading ? <Spinner /> :
-    <main className="grid grid-cols-fluid mt-6">
+    <main className="w-11/12 mx-auto grid grid-cols-fluid mt-6">
     {exams.map(exam => {
          return <div key={exam.id} className="py-2 hover:text-indigo-600">
         <div className="max-w-md mx-auto sm:px-6 lg:px-8">
