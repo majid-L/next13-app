@@ -1,4 +1,5 @@
 'use client';
+
 import ExamsList from '../components/ExamsList';
 import ExamsMap from '../components/ExamsMap';
 import ErrorMessage from '../components/ErrorMessage';
@@ -80,8 +81,8 @@ useEffect(() => {
 }, [candidateName, location, date, month, year, limit]);
 
 
-return (
-<main className="text-center pb-20 mx-auto w-11/12 sm:w-5/6">
+return (<main className="pb-20 mx-auto w-11/12 sm:w-5/6">
+  <section>
   {confirmationMsg && <ConfirmationMessage confirmationMsg={confirmationMsg} setConfirmationMsg={setConfirmationMsg}/>}
 
   <TextSection view={view}/>
@@ -90,7 +91,7 @@ return (
   <div className="flex flex-col w-56 --max-w-720 mx-auto md:w-auto md:flex-row">
   <button id="prev" onClick={() => setView('list')} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-600/80 grow px-3 py-1 mb-4 rounded-md md:mb-8">View as list</button>
   <button id="next" onClick={() => setView('map')} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-600/80 w-56 mx-auto grow px-3 py-1 mb-4 rounded-md md:mx-2 md:w-auto md:mb-8">View as map</button>
-  {userIsAdmin(loggedInUser) && <Link href='/exams/new' className="bg-orange-300 border-1 border-gray-500 shadow-lg shadow-yellow-500/50 grow px-2 py-1 mb-8 rounded-md">Add new exam</Link>}
+  {userIsAdmin(loggedInUser) && <Link href='/exams/new' className="bg-orange-300 border-1 border-gray-500 shadow-lg shadow-yellow-500/50 text-center grow px-2 py-1 mb-8 rounded-md">Add new exam</Link>}
   </div>
 
   {errorMsg.show && <ErrorMessage errorMsg={errorMsg} setErrorMsg={setErrorMsg}/>}
@@ -98,7 +99,7 @@ return (
   {!errorMsg.value && <section>
   {/* Calendar */}
   <Calendar onChange={setDate} onClickMonth={handleMonthChange(setDate, setMonth, setYear)} tileClassName={highlightExamDates(examsSet)}/>
-  <button onClick={resetDateFilter(setDate, setMonth, setYear)} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-950/80 w-56 px-3 py-1 mb-4 rounded-md">Deselect date filter</button>
+  <button onClick={resetDateFilter(setDate, setMonth, setYear)} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-950/80 block w-56 px-3 py-1 mx-auto mb-4 rounded-md">Deselect date filter</button>
 
   <div className="flex flex-col items-center lg:flex-row sm:justify-center">
   {/* filter by location/name */}
@@ -115,9 +116,11 @@ return (
 
   {/* page controls */}
   <div className="bg-slate-200 w-56 mb-3 mx-3 rounded px-2 py-1">
-  <p className="pt-1">Page: {totalResults ? currentPage : 1}{totalPages && ` of ${totalPages}`} {totalResults ? `(${totalResults} results)` : '(0 results)'}</p>
-  <button id="prev" onClick={handleClick(pageLinks, pageControl, setPageControl)} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-950/80 px-3 py-1 m-2 rounded-md">Prev</button>
-  <button id="next" onClick={handleClick(pageLinks, pageControl, setPageControl)} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-950/80 px-3 py-1 m-2 rounded-md">Next</button>
+  <p className="pt-1 text-center">Page: {totalResults ? currentPage : 1}{totalPages && ` of ${totalPages}`} {totalResults ? `(${totalResults} results)` : '(0 results)'}</p>
+  <div className="flex justify-center">
+  <button id="prev" onClick={handleClick(pageLinks, pageControl, setPageControl)} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-950/80 w-20 px-3 py-1 m-2 rounded-md">Prev</button>
+  <button id="next" onClick={handleClick(pageLinks, pageControl, setPageControl)} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-950/80 w-20 px-3 py-1 m-2 rounded-md">Next</button>
+  </div>
   </div>
 
   {/* set page limit and sort order */}
@@ -143,7 +146,9 @@ return (
   </div>
   </div>
   </section>}
+  </section>
 
+ <section>
   {/* Conditionally render map or list */}
   {exams.length === 0 && !errorMsg.value && !isLoading ? 
   <>
@@ -158,6 +163,7 @@ return (
   : <ExamsMap exams={exams} isLoading={isLoading}/>}
 
   {exams.length > 0 && <BackToTopButton />}
+  </section>
 </main>
 );
 };
