@@ -1,6 +1,6 @@
 # Interactive front-end app with Next.js and Tailwind CSS
 
-Welcome to this Next13 application! Let's first dive into the main features of this project.
+Welcome to this Next13 CRUD application! Let's first dive into the main features of this project.
 
 <br></br>
 <img src='./public/images/next.svg' width=300>
@@ -48,26 +48,6 @@ pnpm dev
 4) Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 5) You can edit the application by modifying any of the functional components located in ./app and the webpage auto-updates as you edit the file.
 
-[http://localhost:3000/api/hello](http://localhost:3000/api/hello) is an endpoint that uses [Route Handlers](https://beta.nextjs.org/docs/routing/route-handlers). This endpoint can be edited in `app/api/hello/route.js`.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-<br></br>
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-<br></br>
-
-## Screeenshots
-The exams page contains a map which shows a live view of exams which can be filtered and paginated. Hovering over each pin on the map reveals an infobox with the name of the candidate and the exam, as well as links to the exam page and the rest of that candidate's exams.
-
-<sub><sup>(Never mind that some of those exams are taking place right in the middle of an ocean - the longitude/latitude data was generated automatically!)
-
-<img src='./public/images/map.png' width=500>
-<br></br>
-
 ## Main libraries used for this project
 Library | Purpose
 --- | ---
@@ -77,4 +57,15 @@ Tailwind CSS | Styling
 React-Calendar | Date visualisation and filtering
 Axios | API requests
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Screeenshots
+The exams page contains a map which shows a live view of exams which can be filtered and paginated. Hovering over each pin on the map reveals an infobox with the name of the candidate and the exam, as well as links to the exam page and the rest of that candidate's exams.
+
+<sub><sup>(Never mind that some of those exams are taking place right in the middle of an ocean - the longitude/latitude data was generated automatically!)
+
+<img src='./public/images/map.png' width=500>
+<br></br>
+
+Mobile view:
+<img src='./public/images/full-view.png' width=350>
+
