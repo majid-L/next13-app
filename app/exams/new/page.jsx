@@ -10,6 +10,7 @@ import userIsAdmin from '../../helpers/userIsAdmin';
 import { notFound } from 'next/navigation';
 import ExamForm from '../../components/ExamForm';
 import errorHandler from '../../helpers/errorHandler';
+import ErrorMessage from '../../components/ErrorMessage';
 
 const NewExam = () => {
 const [examDetails, setExamDetails] = useState({
@@ -23,7 +24,7 @@ const [examDetails, setExamDetails] = useState({
 });
 const [newExamId, setNewExamId] = useState(0);
 const [successMsg, setSuccessMsg] = useState('');
-const [errMsg, setErrMsg] = useState('');
+const [errorMsg, setErrorMsg] = useState({value: '', show: true});
 const [isLoading, setIsLoading] = useState(false);
 const { loggedInUser } = useContext(LoggedInUserContext);
 
@@ -49,7 +50,7 @@ const handleSubmit = e => {
     })
     .catch(err => {
         setIsLoading(false);
-        setErrMsg(errorHandler(err));
+        setErrorMsg({show: true, value: errorHandler(err)});
     })
 }
 
@@ -70,11 +71,7 @@ return (<main>
     </div>
   </div>}
 
-  {errMsg && <div className="mx-auto my-16 p-4 bg-red-200 w-11/12 max-w-3xl rounded-md shadow-lg shadow-red-300/60">
-    <p className="text-lg font-semibold">Somthing went wrong.</p>
-    <p>{errMsg}</p>
-    <button onClick={() => setErrMsg('')} className="bg-red-300 py-2.5 px-5 mt-4 border border-gray-400 rounded-md ">Dismiss</button>
-  </div>}
+  {errorMsg.value && errorMsg.show && <ErrorMessage errorMsg={errorMsg} setErrorMsg={setErrorMsg}/>}
 </main>);
 }
 

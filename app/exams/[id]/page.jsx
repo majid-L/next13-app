@@ -79,7 +79,7 @@ return (
 {errorMsg.value && errorMsg.show && <ErrorMessage errorMsg={errorMsg} setErrorMsg={setErrorMsg}/>}
 
 <h2 className="text-center text-stone-100 font-bold text-2xl md:text-3xl mt-12">Update exam details</h2>
-<p className="text-center text-stone-100 mt-4 mb-16 mx-4 md:text-xl">Update as many or as few fields as you'd. Simply click on the "Show" buttons to reveal the input fields.</p>
+<p className="text-stone-100 mt-4 mb-16 mx-auto w-4/5 max-w-3xl md:text-xl">Update as many or as few fields as you'd. Simply click on the "Show" buttons to reveal the input fields.</p>
 <ExamForm formType="PUT" handleSubmit={handleSubmit} examDetails={examDetails} setExamDetails={setExamDetails}/>
 {updateIsLoading && <><p className="text-slate-200 text-center italic">Updating...</p><Spinner margin="mt-4"/></>}
 {confirmationMsg && <ConfirmationMessage confirmationMsg={confirmationMsg} setConfirmationMsg={setConfirmationMsg}/>}
