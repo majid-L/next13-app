@@ -26,11 +26,11 @@ export const logout = (loggedInUser, id) => {
   .then(({data}) => data);
 }
 
-export const getExams = (loggedInUser, name, location, formattedDate, month, year, limit, page) => {
+export const getExams = (loggedInUser, name, location, formattedDate, month, year, limit, page, order) => {
   return axios({
     method: 'get',
     url: `${baseUrl}/exams`,
-    params: { name, location, date: formattedDate, month, year, limit, page },
+    params: { name, location, date: formattedDate, month, year, limit, page, order },
     headers: requestHeaders(loggedInUser).headers
   })
   .then(({data}) => data);
@@ -67,6 +67,16 @@ export const postExam = (loggedInUser, newExam) => {
     url: `${baseUrl}/exams`,
     headers: requestHeaders(loggedInUser).headers,
     data: newExam
+  })
+  .then(({data}) => data);
+}
+
+export const updateExam = (loggedInUser, id, body) => {
+  return axios({
+    method: 'put',
+    url: `${baseUrl}/exams/${id}`,
+    headers: requestHeaders(loggedInUser).headers,
+    data: body
   })
   .then(({data}) => data);
 }
