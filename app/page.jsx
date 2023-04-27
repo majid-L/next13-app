@@ -49,7 +49,7 @@ const [showMsg, setShowMsg] = useState(true);
        {/* flex item */}
      <div className="home-card">
         <Computer/>
-        <h2 className="w-3/4 pt-6 md:p-0">Powered by serverless technology and cutting-edge web design.</h2>
+        <h2 className="w-3/4 pt-6 md:p-0">Powered by serverless technology on a cutting-edge platform.</h2>
       </div>
     </section>
 
