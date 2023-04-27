@@ -1,11 +1,9 @@
 'use client';
 
 import { useState, useContext, useEffect } from "react";
-import { GlobalContext } from "../context/store";
-import axios from 'axios';
+import { LoggedInUserContext } from "../context/store";
+import {login} from '../api/apiRequests';
 import Spinner from "../components/Spinner";
-
-const login = (email, password) => axios.post('https://laravel-php-api.vercel.app/public/api/login', {email, password}).then(({data}) => data);
 
 const LoginPage = () => {
 const [email, setEmail] = useState('');
@@ -13,10 +11,10 @@ const [password, setPassword] = useState('');
 const [errMsg, setErrMsg] = useState('');
 const [successMsg, setSuccessMsg] = useState('');
 const [loading, setIsLoading] = useState(false);
-const { loggedInUser, setLoggedInUser } = useContext(GlobalContext);
+const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
 
 useEffect(() => {
-  if (loggedInUser.user.name) {
+  if (loggedInUser.user?.name) {
     window.localStorage.setItem('ACTIVE_USER', loggedInUser.user.name);
     window.localStorage.setItem('USER_ID', loggedInUser.user.id);
     window.localStorage.setItem('USER_EMAIL', loggedInUser.user.email);
@@ -27,15 +25,10 @@ useEffect(() => {
 }, [loggedInUser]);
 
 const handleSubmit = async e => {
-  /*if (loggedInUser.user.email === email){
-    setErrMsg('You\'re already logged in!');
-    return;
-  }*/
   setIsLoading(true);
   e.preventDefault();
   login(email, password)
   .then(res => {
-    console.log(res);
     setLoggedInUser(res);
     setIsLoading(false);
     setSuccessMsg(true);
