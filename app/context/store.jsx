@@ -1,10 +1,12 @@
 'use client';
 
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const LoggedInUserContext = createContext({});
   const LoggedInUserProvider = ({children}) => {
-  const [loggedInUser, setLoggedInUser] = useState({ 
+  const [loggedInUser, setLoggedInUser] = useState({});
+  useEffect(() => {
+    setLoggedInUser({ 
         user : 
             { 
                 name : window.localStorage.getItem('ACTIVE_USER'),
@@ -13,6 +15,7 @@ export const LoggedInUserContext = createContext({});
             }, 
         token: window.localStorage.getItem('AUTH_TOKEN')
     });
+  }, []);
     
     return (<LoggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
         {children}
