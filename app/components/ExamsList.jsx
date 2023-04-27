@@ -8,7 +8,6 @@ const pathname = usePathname();
 const router = useRouter();
 
 const handleDelete = id => {
-    console.log(loggedInUser);
     deleteExam(loggedInUser, id)
     .then(res => {
       if (res === 1) {
