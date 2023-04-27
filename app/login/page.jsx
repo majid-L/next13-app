@@ -4,6 +4,7 @@ import { useState, useContext, useEffect } from "react";
 import { LoggedInUserContext } from "../context/store";
 import {login} from '../api/apiRequests';
 import Spinner from "../components/Spinner";
+import errorHandler from '../helpers/errorHandler';
 
 const LoginPage = () => {
 const [email, setEmail] = useState('');
@@ -35,8 +36,7 @@ const handleSubmit = async e => {
   })
   .catch(err => {
     setIsLoading(false);
-    const msg = err.response?.data?.message;
-    setErrMsg(msg ? msg : "Unable to process your request.");
+    setErrMsg(errorHandler(err));
   })
 };
 
