@@ -1,22 +1,18 @@
 "use client";
 import Link from "next/link";
 import { useState, useContext } from "react";
-import { GlobalContext } from "../context/store";
-import axios from "axios";
+import { LoggedInUserContext } from "../context/store";
+import { logout } from '../api/apiRequests';
 import userIsAdmin from '../helpers/userIsAdmin';
 
 const Header = () => {
 const [showMenu, setShowMenu] = useState(false);
 const [logoutNotification, showLogoutNotification] = useState('');
 const [errorMsg, setErrorMsg] = useState('');
-const { loggedInUser, setLoggedInUser } = useContext(GlobalContext);
-
-const logout = id => axios.get(`https://laravel-php-api.vercel.app/public/api/logout/${id}`, {
-  headers: {'Authorization': 'Bearer ' + loggedInUser.token}
-}).then(({data}) => data);
+const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
 
 const handleLogout = () => {
-  logout(loggedInUser.user.id)
+  logout(loggedInUser, loggedInUser.user?.id)
   .then(res => {
     showLogoutNotification(res.msg);
     setTimeout(() => showLogoutNotification(''), 6000);
