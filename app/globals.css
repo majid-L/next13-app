@@ -162,6 +162,10 @@ canvas {
   transform: rotate(-45deg) translateY(6px) translate(-6px);
 }
 
+.--loading {
+  height: 200px
+}
+
 .home-card {
   @apply flex flex-col md:flex-row justify-between items-center my-4 bg-slate-200 p-6 rounded-xl shadow-lg shadow-rose-400/70
 }
@@ -170,5 +174,11 @@ canvas {
   .svg {
     width: 80px !important;
     height: 80px !important
+  }
+}
+
+@media(min-width: 1350px){
+  .preview-list {
+    height: 92.5vh
   }
 }
