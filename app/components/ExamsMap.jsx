@@ -1,6 +1,5 @@
 'use client';
-import { useState, useEffect } from "react";
-import { getExams } from '../api/apiRequests';
+import { useState } from "react";
 import React from "react";
 import BingMapsReact from "../../bing";
 import { useWindowWidth } from '@react-hook/window-size/throttled'
