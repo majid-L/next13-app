@@ -16,7 +16,7 @@ const [showMsg, setShowMsg] = useState(true);
     
     {!context?.loggedInUser?.user?.id && showMsg && <div className="mx-auto my-16 p-4 bg-gray-200 w-4/5 max-w-2xl rounded-md shadow-lg shadow-red-300/60">
     <p className="text-lg font-semibold">Log in or sign up.</p>
-    <p>Login or create a new account if you'd like to access more information.</p>
+    <p>Login or create a new account if you would like to access more information.</p>
     <button onClick={() => setShowMsg(false)} className="bg-gray-800 text-slate-200 py-2.5 px-5 mt-4 border border-gray-400 rounded-md ">Dismiss</button>
     </div>}
 
@@ -31,7 +31,7 @@ const [showMsg, setShowMsg] = useState(true);
       {/* flex item */}
       <div className="home-card">
         <UserIcon/>
-        <h2 className="w-3/4 pt-6 md:p-0">Create an account and view your candidates' exams.</h2>
+        <h2 className="w-3/4 pt-6 md:p-0">Create an account and view your candidates&apos; exams.</h2>
       </div>
 
       {/* flex item */}
