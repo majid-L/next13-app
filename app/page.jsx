@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { LoggedInUserContext } from "./context/store";
 import UpcomingExams from './components/UpcomingExams';
 import BackToTopButton from './components/BackToTopButton';
+import userIsAdmin from './helpers/userIsAdmin';
 
 const HomePage = () => {
 const context = useContext(LoggedInUserContext);
@@ -53,10 +54,10 @@ const [showMsg, setShowMsg] = useState(true);
       </div>
     </section>
 
-    <div className="mx-auto mt-14 xl-2:mt-3 xl-2:ml-6 xl-2:w-64 xl-2:absolute xl-2:-top-12">
+    {context?.loggedInUser?.user?.id && userIsAdmin(context?.loggedInUser) && <div className="mx-auto mt-14 xl-2:mt-3 xl-2:ml-6 xl-2:w-64 xl-2:absolute xl-2:-top-12">
     <h2 className="bg-brightPink text-center xl-2:text-left text-slate-200 w-full font-bold p-2 xl-2:rounded-t-lg xl-2:border-b-2 border-b-gray-400">Upcoming exam sessions</h2>
     <UpcomingExams/>
-    </div>
+    </div>}
     <BackToTopButton/>
   </main>
   );
