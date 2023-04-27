@@ -11,6 +11,21 @@ const requestHeaders = loggedInUser => {
 
 const baseUrl = 'https://laravel-php-api.vercel.app/public/api';
 
+export const signup = (name, email, password, passwordConf) => {
+  return axios.post(`${baseUrl}/signup`, {name, email, password, 'password_confirmation': passwordConf})
+  .then(({data}) => data);
+}
+
+export const login = (email, password) => {
+  return axios.post(`${baseUrl}/login`, {email, password})
+  .then(({data}) => data);
+}
+
+export const logout = (loggedInUser, id) => {
+  return axios.get(`${baseUrl}/logout/${id}`, requestHeaders(loggedInUser))
+  .then(({data}) => data);
+}
+
 export const getExams = (loggedInUser, name, location, formattedDate, month, year, limit, page) => {
   return axios({
     method: 'get',
@@ -20,6 +35,11 @@ export const getExams = (loggedInUser, name, location, formattedDate, month, yea
   })
   .then(({data}) => data);
 }
+
+export const getUpcomingExams = (loggedInUser, date) => {
+  return axios.get(`${baseUrl}/exams?after=${date}&order=asc&limit=40`, requestHeaders(loggedInUser))
+  .then(({data}) => data);
+};
 
 export const getSingleExam = (loggedInUser, id) => {
   return axios.get(`${baseUrl}/exams/${id}`, requestHeaders(loggedInUser))
