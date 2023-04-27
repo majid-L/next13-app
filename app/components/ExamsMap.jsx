@@ -47,7 +47,7 @@ return (
   </div>}
 
   {/* Map */}
-  {!isLoading && <div className="flex justify-center m-auto mt-4 w-11/12 max-w-screen-lg">
+  {!isLoading && <div className="flex justify-center m-auto mt-4 lg:w-11/12 max-w-screen-lg">
     <BingMapsReact 
       bingMapsKey="AgWz7lrowQaBmXiXmXXzepTNUmKwZrEs-gTdNUijBoVZDV0bltjdBdVAvHg8gqod" height={`${windowWidth < 460 ? 400 : windowWidth < 660 ? 500 : mapWidth}px`} width={`${windowWidth < 460 ? 500 : windowWidth < 660 ? 600 : mapWidth}px`}
       mapOptions={{
