@@ -3,6 +3,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  env: {
+    API_KEY: process.env.API_KEY,
+  }
 }
 
 module.exports = nextConfig
