@@ -23,7 +23,7 @@ const [exams, setExams] = useState([]);
 const [isLoading, setIsLoading] = useState(false);
 const { loggedInUser } = useContext(LoggedInUserContext);
 const [confirmationMsg, setConfirmationMsg] = useState('');
-const [errorMsg, setErrorMsg] = useState({ value: '', show: true});
+const [errorMsg, setErrorMsg] = useState({ value: '', show: false});
 const examsSet = useMemo(() => new Set(exams.map(({date}) => date.slice(0, 10))));
 
 // Allow user to select list or map view
@@ -94,7 +94,7 @@ return (<main className="pb-20 mx-auto w-11/12 sm:w-5/6">
   {userIsAdmin(loggedInUser) && <Link href='/exams/new' className="bg-orange-300 border-1 border-gray-500 shadow-lg shadow-yellow-500/50 text-center grow px-2 py-1 mb-8 rounded-md">Add new exam</Link>}
   </div>
 
-  {errorMsg.show && <ErrorMessage errorMsg={errorMsg} setErrorMsg={setErrorMsg}/>}
+  {errorMsg.value && errorMsg.show && <ErrorMessage errorMsg={errorMsg} setErrorMsg={setErrorMsg}/>}
   
   {!errorMsg.value && <section>
   {/* Calendar */}
