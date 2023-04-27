@@ -3,12 +3,13 @@ import ExamsList from '../components/ExamsList';
 import ExamsMap from '../components/ExamsMap';
 import { getExams } from '../api/apiRequests';
 import { useEffect, useContext, useState, useMemo } from 'react';
-import { GlobalContext } from '../context/store';
+import { LoggedInUserContext } from '../context/store';
 import { handleChange, handleMonthChange, resetDateFilter, formatDateString, highlightExamDates, handleClick } from '../helpers/examPageHelpers';
 import BackToTopButton from '../components/BackToTopButton';
 import userIsAdmin from '../helpers/userIsAdmin';
 import Calendar from 'react-calendar';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import TextSection from '../components/TextSection';
 import 'react-calendar/dist/Calendar.css';
 
@@ -16,7 +17,7 @@ const ExamsPage = () => {
 // States concerned with fetching of exam data
 const [exams, setExams] = useState([]);
 const [isLoading, setIsLoading] = useState(false);
-const { loggedInUser } = useContext(GlobalContext);
+const { loggedInUser } = useContext(LoggedInUserContext);
 const [confirmationMsg, setConfirmationMsg] = useState('');
 const [errorMsg, setErrorMsg] = useState({ value: '', show: true});
 const examsSet = useMemo(() => new Set(exams.map(({date}) => date.slice(0, 10))));
@@ -34,11 +35,11 @@ const [totalResults, setTotalResults] = useState('');
 
 // States concerned with query parameters
 const [query, setQuery] = useState('Name');
-const [candidateName, setCandidateName] = useState(null);
-const [location, setLocation] = useState(null);
-const [date, setDate] = useState(null);
-const [month, setMonth] = useState(null);
-const [year, setYear] = useState(null);
+const [candidateName, setCandidateName] = useState('');
+const [location, setLocation] = useState('');
+const [date, setDate] = useState('');
+const [month, setMonth] = useState('');
+const [year, setYear] = useState('');
 
 // Scrolls to top, onto the confirmation message
 if (confirmationMsg) {
@@ -47,6 +48,9 @@ if (confirmationMsg) {
 
 // Fetch exam data in response to change in name/location/date/month/page/limit
 useEffect(() => {
+  if (!loggedInUser.user?.id || !userIsAdmin(loggedInUser)) {
+    notFound();
+  }
   setErrorMsg({value: '', show: ''});
   setIsLoading(true);
   getExams(loggedInUser, candidateName, location, formatDateString(date), month, year, limit, pageControl)
