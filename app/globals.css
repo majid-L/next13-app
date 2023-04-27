@@ -103,7 +103,6 @@ canvas {
 
 .text-shadow-sm {
   text-shadow: 4px 4px 7px #e73c7e;
-  line-height: 60px !important
 }
 
 @keyframes gradient {
