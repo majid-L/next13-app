@@ -2,10 +2,14 @@
 
 import { faker } from '@faker-js/faker';
 import Spinner from "../../components/Spinner";
-import { useContext, useState } from 'react';
-import { GlobalContext } from '../../context/store';
+import { useContext, useState, useEffect } from 'react';
+import { LoggedInUserContext } from '../../context/store';
 import { postExam } from '../../api/apiRequests';
 import Link from 'next/link';
+import userIsAdmin from '../../helpers/userIsAdmin';
+import { notFound } from 'next/navigation';
+import ExamForm from '../../components/ExamForm';
+import errorHandler from '../../helpers/errorHandler';
 
 const NewExam = () => {
 const [examDetails, setExamDetails] = useState({
@@ -21,7 +25,13 @@ const [newExamId, setNewExamId] = useState(0);
 const [successMsg, setSuccessMsg] = useState('');
 const [errMsg, setErrMsg] = useState('');
 const [isLoading, setIsLoading] = useState(false);
-const { loggedInUser } = useContext(GlobalContext);
+const { loggedInUser } = useContext(LoggedInUserContext);
+
+useEffect(() => {
+  if (!userIsAdmin(loggedInUser)) {
+    notFound();
+  }
+}, []);
 
 const handleSubmit = e => {
     e.preventDefault();
@@ -37,52 +47,17 @@ const handleSubmit = e => {
         setNewExamId(res.id);
         setSuccessMsg("Exam has been successfully added. You can now view the exam page.");
     })
-    .catch(({response : { data }}) => {
+    .catch(err => {
         setIsLoading(false);
-        if (data.msg) {
-          setErrMsg(data.msg);
-        } else if (data.message) {
-          setErrMsg(data.message);
-        } else {
-          setErrMsg("Exam could not be added. Try again later.")
-        }
+        setErrMsg(errorHandler(err));
     })
 }
 
 return (<main>
   <h1 className="text-stone-100 text-center w-4/5 font-bold text-3xl md:text-4xl mx-auto mt-20">Create a new exam session.</h1>
   <p className="text-center text-stone-100 w-4/5 mx-auto mt-2">Ensure you provide the candidate's name and ID, exam title, description and location, and the date.</p>
-  <form onSubmit={handleSubmit} className="mx-auto my-10 p-4 bg-stone-200 w-11/12 max-w-3xl rounded-md shadow-lg shadow-pink-400/60">
-    <div>
-    <label className="block mb-2">Candidate name</label>
-    <input required type="text" onChange={e => setExamDetails(prev => ({...prev, candidate_name: e.target.value}))} value={examDetails.candidate_name} className="h-9 p-2 w-full rounded-md border border-stone-400"/>
-    </div>
-    <div className="mt-4">
-    <label className="block mb-2">Candidate ID</label>
-    <input required type="text" onChange={e => setExamDetails(prev => ({...prev, candidate_id: e.target.value}))} value={examDetails.candidate_id}  className="h-9 p-2 w-full rounded-md border border-stone-400"/>
-    </div>
-    <div className="mt-4">
-    <label className="block mb-2">Exam title</label>
-    <input required type="text" onChange={e => setExamDetails(prev => ({...prev, title: e.target.value}))} value={examDetails.title} className="h-9 p-2 w-full rounded-md border border-stone-400"/>
-    </div>
-    <div className="mt-4">
-    <label className="block mb-2">Exam date</label>
-    <input required type="date" onChange={e => setExamDetails(prev => ({...prev, date: e.target.value}))} value={examDetails.date} className="h-9 p-2 w-full rounded-md border border-stone-400"/>
-    </div>
-    <div className="mt-4">
-    <label className="block mb-2">Exam time</label>
-    <input required type="time" onChange={e => setExamDetails(prev => ({...prev, time: e.target.value}))} value={examDetails.time} className="h-9 p-2 w-full rounded-md border border-stone-400"/>
-    </div>
-    <div className="mt-4">
-    <label className="block mb-2">Exam description</label>
-    <input required type="text" onChange={e => setExamDetails(prev => ({...prev, description: e.target.value}))} value={examDetails.description}  className="h-9 p-2 w-full rounded-md border border-stone-400"/>
-    </div>
-    <div className="mt-4">
-    <label className="block mb-2">Exam location</label>
-    <input required type="text" onChange={e => setExamDetails(prev => ({...prev, location_name: e.target.value}))} value={examDetails.location_name}  className="h-9 p-2 w-full rounded-md border border-stone-400"/>
-    </div>
-    <button className="bg-gray-900 text-stone-100 py-2.5 px-5 mt-4 rounded-md active:bg-gray-600">Add new exam session</button>
-  </form>
+  
+  <ExamForm formType="POST" handleSubmit={handleSubmit} examDetails={examDetails} setExamDetails={setExamDetails}/>
 
   {isLoading && <Spinner/>}
 
