@@ -36,7 +36,7 @@ return isLoading ? <Spinner /> :
                     <p className="mb-2 pb-2 border-b-2 border-t-indigo-500 text-gray-500">{exam.title} (Exam ID: {exam.id})</p>
                     <p className="pb-2 border-b-2 border-t-indigo-500">{exam.description} is taking place at {exam.locationName} on {exam.date.slice(0, 10)} at {exam.date.slice(10)}.</p>
                     </div>
-                    {pathname === '/exams' && <Link href={`/candidates/${exam.candidateId}`} className="block mt-2 text-pink-700 hover:underline hover:text-blue-500 overflow-ellipsis truncate">View {exam.candidateName}&lsquo;s exams</Link>}
+                    {pathname === '/exams' && <Link href={`/candidates/${exam.candidateId}`} className="block mt-2 text-pink-700 hover:underline hover:text-blue-500 overflow-ellipsis truncate">View {exam.candidateName}&#39;s exams</Link>}
                      <button onClick={() => handleDelete(exam.id)} className="bg-gray-300 w-full border-2 border-gray-400 mt-2 py-1 px-2 rounded hover:bg-red-400">Cancel session</button>
                 </div>
             </div>
