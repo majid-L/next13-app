@@ -1,8 +1,9 @@
-const ConfirmationMeesage = ({confirmationMsg, setConfirmationMsg}) => {
-    return <div className="bg-slate-200 --max-w-720 mx-auto mt-5 rounded-md">
-    <p className="pt-2">{confirmationMsg}</p>
-    <button onClick={() => setConfirmationMsg(false)} className="bg-brightPink border-1 border-gray-500 shadow-lg shadow-pink-950/80 px-3 py-1 mt-3 mb-4 rounded-md">Dismiss</button>
-    </div>;
+const ConfirmationMessage = ({confirmationMsg, setConfirmationMsg}) => {
+  return (<div className="mx-auto my-16 p-4 bg-indigo-200 w-11/12 max-w-3xl rounded-md shadow-lg shadow-red-300/60">
+    <p className="text-lg font-semibold">Update successful.</p>
+    <p className="italic">{confirmationMsg}</p>
+    <button onClick={() => setConfirmationMsg(false)} className="block w-fit bg-indigo-500 text-yellow-100 py-2.5 px-5 mt-4 border border-gray-400 rounded-md">Dismiss</button>
+    </div>);
 }
 
-export default ConfirmationMeesage;
+export default ConfirmationMessage;
