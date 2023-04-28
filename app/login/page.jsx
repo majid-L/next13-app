@@ -37,8 +37,8 @@ const handleSubmit = e => {
 
 return (
 <main className="pb-20">
-  <h1 className="text-center text-stone-100 font-bold text-4xl mt-20">Log in</h1>
-  <p className="text-center text-stone-100 mt-2">Log in with your email and password.</p>
+  <h1 className="text-center text-stone-100 font-bold text-4xl mt-16">Log in</h1>
+  <p className="text-center text-stone-100 mt-4">Log in with your email and password.</p>
   <form onSubmit={handleSubmit} className="mx-auto my-10 p-4 bg-stone-200 w-11/12 max-w-3xl rounded-md shadow-lg shadow-pink-400/60">
     <div>
     <label className="block mb-2">Email</label>
