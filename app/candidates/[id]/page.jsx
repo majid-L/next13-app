@@ -9,6 +9,7 @@ import userIsAdmin from '../../helpers/userIsAdmin';
 import Spinner from '../../components/Spinner';
 import ErrorMessage from '../../components/ErrorMessage';
 import ConfirmationMessage from '../../components/ConfirmationMessage';
+import errorHandler from '../../helpers/errorHandler';
 
 const SingleCandidateExams = ({params : { id }}) => {
 
@@ -25,22 +26,23 @@ const SingleCandidateExams = ({params : { id }}) => {
   }, [confirmationMsg]);
 
   useEffect(() => {
-    if (!loggedInUser.user?.id || (!userIsAdmin(loggedInUser) && loggedInUser.user?.id !== id)) {
+    setErrorMsg({value: '', show: false});
+    if (!window.localStorage.getItem('USER_ID') || 
+    (!userIsAdmin({ user: { email : window.localStorage.getItem('USER_EMAIL')}})) && 
+    window.localStorage.getItem('USER_ID') !== id) {
       notFound();
     }
-    setErrorMsg({value: '', show: ''});
     setIsLoading(true);
-      getSingleCandidatesExams(loggedInUser, id)
+      getSingleCandidatesExams({token : window.localStorage.getItem('AUTH_TOKEN')}, id)
       .then(res => {
         setIsLoading(false);
         setExams(res.exams);
      })
-     .catch(({response}) => {
+     .catch(err => {
         setIsLoading(false);
-        setErrorMsg(response?.data?.message);
+        setErrorMsg({value: errorHandler(err), show: true});
      });
   }, []);
-
 
 return (
 <main className="pb-20 mx-auto w-11/12 sm:w-5/6">
