@@ -5,6 +5,8 @@ import { LoggedInUserContext } from "../context/store";
 import { logout } from '../api/apiRequests';
 import userIsAdmin from '../helpers/userIsAdmin';
 import { LoggedInUserIcon } from "./Icons";
+import errorHandler from "../helpers/errorHandler";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
 const [showMenu, setShowMenu] = useState(false);
@@ -12,14 +14,16 @@ const [logoutNotification, showLogoutNotification] = useState('');
 const [errorMsg, setErrorMsg] = useState('');
 const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
 
+const router = useRouter();
+
 const handleLogout = () => {
-  logout(loggedInUser, loggedInUser.user?.id)
+  logout({ token : window.localStorage.getItem('AUTH_TOKEN')}, window.localStorage.getItem('USER_ID'))
   .then(res => {
     showLogoutNotification(res.msg);
     setTimeout(() => showLogoutNotification(''), 6000);
   })
   .catch(err => {
-    setErrorMsg(err.response?.date?.msg ? err.response.date.msg : err.message);
+    setErrorMsg(errorHandler(err));
     setTimeout(() => setErrorMsg(''), 6000);
   })
   .finally(() => {
@@ -28,6 +32,7 @@ const handleLogout = () => {
     window.localStorage.setItem('USER_ID', '');
     window.localStorage.setItem('USER_EMAIL', '');
     window.localStorage.setItem('AUTH_TOKEN', '');
+    router.push('/');
   });
 }
 
@@ -88,7 +93,7 @@ return(
             <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/candidates'>Candidates</Link>
             </> 
             : loggedInUser.user?.id ? <Link className="hover:text-orange-500" href={`/candidates/${loggedInUser.user?.id}`}>My Exams</Link> : null}
-            
+
             {loggedInUser.user?.name && 
             <div className="w-full py-4 bg-brightPink text-slate-100 text-center mb-2 rounded-b-lg">
               <div className="flex justify-center">
