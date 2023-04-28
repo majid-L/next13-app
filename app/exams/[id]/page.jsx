@@ -74,7 +74,7 @@ return (
     <p className="font-bold text-lg">{exam.candidateName} <span className="font-medium">(ID: {exam.candidateId})</span></p>
     <p className="mb-2 pb-2 border-b-2 border-t-indigo-500 text-gray-500">{exam.title} (Exam ID: {exam.id})</p>
     <p className="pb-2 border-b-2 border-t-indigo-500">{exam.description} is taking place in {exam.locationName} on {exam.date.slice(0, 10)} at {exam.date.slice(11)}.</p>
-    <Link href={`/candidates/${exam.candidateId}`} className="block w-fit mt-2 text-pink-700 hover:underline hover:text-blue-500">View {exam.candidateName}'s exams</Link>
+    <Link href={`/candidates/${exam.candidateId}`} className="block mt-2 text-pink-700 hover:underline hover:text-blue-500">View {exam.candidateName}'s exams</Link>
 </div>
 </div> : null}
 
