@@ -66,9 +66,9 @@ const handleSubmit = e => {
 return (
 <main className="pb-20">
   <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-12 mx-6">Viewing exam session: {exam.title}</h1>
-  <p className="text-center text-stone-100 mt-4 mb-16 mx-4 md:text-xl">To see all exams for {exam.candidateName}, click on the link below.</p>
+  <p className="text-center text-stone-100 mt-4 mb-10 mx-4 md:text-xl">To see all exams for {exam.candidateName}, click on the link below.</p>
 
-{isLoading ? <Spinner/> : exam ? <div className="bg-white border-1 border-gray-700 shadow-lg shadow-pink-300/40 overflow-hidden rounded-lg w-11/12 mb-16 max-w-3xl m-auto">
+{isLoading ? <Spinner/> : exam ? <div className="bg-white border-1 border-gray-700 shadow-lg shadow-pink-300/40 overflow-hidden rounded-lg w-11/12 mb-10 max-w-3xl m-auto">
 <div className="p-6 pb-4 text-gray-900 text-left">
     <p className="font-bold text-lg">{exam.candidateName} <span className="font-medium">(ID: {exam.candidateId})</span></p>
     <p className="mb-2 pb-2 border-b-2 border-t-indigo-500 text-gray-500">{exam.title} (Exam ID: {exam.id})</p>
@@ -81,8 +81,8 @@ return (
 
 {errorMsg.value && errorMsg.show && <ErrorMessage errorMsg={errorMsg} setErrorMsg={setErrorMsg}/>}
 
-<h2 className="text-center text-stone-100 font-bold text-2xl md:text-3xl mt-12">Update exam details</h2>
-<p className="text-stone-100 mt-4 mb-16 mx-auto w-4/5 max-w-3xl md:text-xl">Update as many or as few fields as you'd. Simply click on the "Show" buttons to reveal the input fields.</p>
+<h2 className="text-center text-stone-100 font-bold text-2xl md:text-3xl mt-10 md:mt-16">Update exam details</h2>
+<p className="text-stone-100 mt-4 mb-10 mx-auto w-4/5 max-w-3xl md:text-xl">Update as many or as few fields as you'd. Simply click on the "Show" buttons to reveal the input fields.</p>
 <ExamForm formType="PUT" handleSubmit={handleSubmit} examDetails={examDetails} setExamDetails={setExamDetails}/>
 {updateIsLoading && <><p className="text-slate-200 text-center italic">Updating...</p><Spinner margin="mt-4"/></>}
 </main>);
