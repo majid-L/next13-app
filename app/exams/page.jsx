@@ -157,7 +157,7 @@ return (<main className="pb-20 mx-auto w-11/12 sm:w-5/6">
     <p className="ml-4">No matching results.</p>
     </div> 
     {(date || month || year) && 
-    <p className="m-4 text-slate-200 text-lg italic">Tip: deselect any active date filters to show more results.</p>}
+    <p className="m-4 text-center text-slate-200 text-lg italic">Tip: deselect any active date filters to show more results.</p>}
   </>
   : view === 'list' ? <ExamsList loggedInUser={loggedInUser} exams={exams} setExams={setExams} isLoading={isLoading} setConfirmationMsg={setConfirmationMsg}/>
   : <ExamsMap exams={exams} isLoading={isLoading}/>}
