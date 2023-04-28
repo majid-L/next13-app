@@ -33,7 +33,7 @@ return (
   {isLoading && <Spinner/>}
 
   {/* Buttons */}
-  {!isLoading && windowWidth > 360 &&
+  {!isLoading && windowWidth > 660 &&
   <div className="text-center bg-slate-200 w-56 mx-auto mt-10 rounded-lg">
   <p className="bg-brightPink p-2 rounded-t-md">Change map size</p>
   <div className="flex justify-center">
