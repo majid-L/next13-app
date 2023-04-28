@@ -74,15 +74,21 @@ return(
               <span className="tripline-bottom"></span>
              </button>
         </div>
+
         {/* mobile menu */}
         <div className={`${!showMenu && 'hidden'} md:hidden`}>
           <div className={`${loggedInUser?.user?.id ? 'pt-8' : 'p-8'} absolute flex flex-col -top-2 items-center self-end mt-10 space-y-6 bg-white sm:w-auto sm:self-center left-6 right-6 shadow-lg shadow-pink-500/40 border border-slate-300 rounded-lg`}>
+            
             {!loggedInUser?.user?.id && <><Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/login'>Login</Link>
             <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/signup'>Signup</Link></>}
             <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/'>Home</Link>
+            
             {userIsAdmin(loggedInUser) ? 
             <><Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/exams'>Exams</Link>
             <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/candidates'>Candidates</Link>
+            </> 
+            : loggedInUser.user?.id ? <Link className="hover:text-orange-500" href={`/candidates/${loggedInUser.user?.id}`}>My Exams</Link> : null}
+            
             {loggedInUser.user?.name && 
             <div className="w-full py-4 bg-brightPink text-slate-100 text-center mb-2 rounded-b-lg">
               <div className="flex justify-center">
@@ -91,8 +97,6 @@ return(
               </div>
               <button onClick={handleLogout} className="md:block py-2 px-3 mt-2.5 rounded-lg text-stone-200 bg-gray-800">Logout</button>
             </div>}
-            </> 
-            : loggedInUser.user?.id ? <Link className="hover:text-orange-500" href={`/candidates/${loggedInUser.user?.id}`}>My Exams</Link> : null}
         </div>
         </div>
     </nav>
