@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { LoggedInUserContext } from "../context/store";
 import { signup } from '../api/apiRequests';
 import Spinner from "../components/Spinner";
 import errorHandler from "../helpers/errorHandler";
@@ -13,13 +14,19 @@ const [passwordConf, setPasswordConf] = useState('');
 const [errMsg, setErrMsg] = useState('');
 const [successMsg, setSuccessMsg] = useState('');
 const [isLoading, setIsLoading] = useState(false);
+const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
 
-const handleSubmit = async e => {
+const handleSubmit = e => {
   e.preventDefault();
   setIsLoading(true);
   setSuccessMsg(false);
   signup(name, email, password, passwordConf)
-  .then(() => {
+  .then(res => {
+    window.localStorage.setItem('ACTIVE_USER', res.user?.name);
+    window.localStorage.setItem('USER_ID', res.user?.id);
+    window.localStorage.setItem('USER_EMAIL', res.user?.email);
+    window.localStorage.setItem('AUTH_TOKEN', res?.token);
+    setLoggedInUser(res);
     setIsLoading(false);
     setSuccessMsg(true);
     setEmail('');
@@ -61,7 +68,7 @@ return (
 
   {successMsg && <div className="mx-auto my-16 p-4 bg-green-200 w-11/12 max-w-3xl rounded-md shadow-lg shadow-green-300/60">
     <p className="text-lg font-semibold">Account created successfully.</p>
-    <p>You can now sign in to your account using your email and password.</p>
+    <p>You can now start using your details to sign in to your account.</p>
     <button onClick={() => setSuccessMsg(false)} className="bg-green-300 py-2.5 px-5 mt-4 border border-gray-400 rounded-md ">Dismiss</button>
   </div>}
 
