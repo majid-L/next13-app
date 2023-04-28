@@ -33,6 +33,7 @@ const handleLogout = () => {
     window.localStorage.setItem('USER_EMAIL', '');
     window.localStorage.setItem('AUTH_TOKEN', '');
     router.push('/');
+    setShowMenu(false);
   });
 }
 
