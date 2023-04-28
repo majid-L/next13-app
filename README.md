@@ -2,7 +2,7 @@
 
 **[Click this link to go to the live app](https://next13-app-alpha.vercel.app/)**
 
-Welcome to this Next13 CRUD application! Let's first talk about how to get started.
+Welcome to this Next13 CRUD application! Let's first talk about how to get started with using the app.
 
 <br></br>
 <img src='./public/images/next.svg' width=300>
@@ -12,8 +12,10 @@ Welcome to this Next13 CRUD application! Let's first talk about how to get start
 1) Sign up for a new account at [this link](https://next13-app-alpha.vercel.app/signup).
     - To access all of the application's features, you'll need an admin account. For demonstration purposes, sign up with an email ending with **@v3.admin** to get admin access.
 2) Login in with your email and password.
-3) On the 'Exams' page, you can toggle between list/map view, filter, paginate and sort.
-4) On the 'Exams' page, you can higlight exam days by clicking on the black banner at the top of the calendar and selecting a specific month.
+
+### Tips:
+- On the 'Exams' page, you can toggle between list/map view, filter, paginate and sort.
+- On the 'Exams' page, you can higlight exam days by clicking on the black banner at the top of the calendar and selecting a specific month.
 
 Now let's dive into the main features of this project.
 
@@ -24,7 +26,7 @@ Now let's dive into the main features of this project.
 - Interactive UI provides the user with feedback regarding loading, confirmation and error states.
 - State synchronisation across multiple views.
 - Leverages back end and front end form validation.
-- Leverages back-end authentication and authorization features through request headers, allowing users to sign up and log in.
+- Leverages back-end authentication and authorization services through request headers.
 - Implements dynamic filtering and pagination with multiple active queries.
 - Includes a calendar that highlights active dates and allows users to filter results by day/month.
 - Uses extensive data fetching and customised error handling via promises.
@@ -61,7 +63,7 @@ pnpm dev
 5) You can edit the application by modifying any of the functional components located in ./app and the webpage auto-updates as you edit the file.
 
 ### Accessing the Bing Maps API
-To use the maps API in your local environment, you will need your own private key.
+To use the maps API in your own local version of this project, you will need a personal key.
 
 1) Head over to the Bing maps Dev Center (https://www.bingmapsportal.com/) where you can create an account and create a new basic API key. Copy this key to your clipboard.
 2) Create a ```.env``` file in the root of the repository and add a variable named API_KEY. Assign the API key to this variable.
