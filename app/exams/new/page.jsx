@@ -29,7 +29,7 @@ const [isLoading, setIsLoading] = useState(false);
 const { loggedInUser } = useContext(LoggedInUserContext);
 
 useEffect(() => {
-  if (!userIsAdmin(loggedInUser)) {
+  if (!userIsAdmin({user: { email : window.localStorage.getItem('USER_EMAIL')}})) {
     notFound();
   }
 }, []);
@@ -54,7 +54,7 @@ const handleSubmit = e => {
     })
 }
 
-return (<main>
+return (<main className="pb-20">
   <h1 className="text-stone-100 text-center w-4/5 font-bold text-3xl md:text-4xl mx-auto mt-20">Create a new exam session.</h1>
   <p className="text-center text-stone-100 w-4/5 mx-auto mt-2">Ensure you provide the candidate's name and ID, exam title, description and location, and the date.</p>
   
