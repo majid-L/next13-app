@@ -14,7 +14,7 @@ const [successMsg, setSuccessMsg] = useState('');
 const [loading, setIsLoading] = useState(false);
 const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
 
-useEffect(() => {
+/*useEffect(() => {
   if (loggedInUser.user?.name) {
     window.localStorage.setItem('ACTIVE_USER', loggedInUser.user.name);
     window.localStorage.setItem('USER_ID', loggedInUser.user.id);
@@ -23,16 +23,22 @@ useEffect(() => {
     setEmail('');
     setPassword('');
   }
-}, [loggedInUser]);
+}, [loggedInUser]);*/
 
-const handleSubmit = async e => {
-  setIsLoading(true);
+const handleSubmit = e => {
   e.preventDefault();
+  setIsLoading(true);
   login(email, password)
   .then(res => {
+    window.localStorage.setItem('ACTIVE_USER', res.user?.name);
+    window.localStorage.setItem('USER_ID', res.user?.id);
+    window.localStorage.setItem('USER_EMAIL', res.user?.email);
+    window.localStorage.setItem('AUTH_TOKEN', res?.token);
     setLoggedInUser(res);
     setIsLoading(false);
     setSuccessMsg(true);
+    setEmail('');
+    setPassword('');
   })
   .catch(err => {
     setIsLoading(false);
