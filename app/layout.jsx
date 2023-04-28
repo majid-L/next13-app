@@ -9,8 +9,8 @@ const font = Inter({
 });
 
 export const metadata = {
-  title: 'My first Next app!',
-  description: 'Yayayayaya.',
+  title: 'Responsive Next.js app',
+  description: 'Next13 and Tailwind CSS app. Powered by Vercel.',
 }
 
 export default function RootLayout({children}) {
