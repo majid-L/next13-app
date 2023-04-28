@@ -22,7 +22,7 @@ const handleLogout = () => {
     setTimeout(() => setErrorMsg(''), 6000);
   })
   .finally(() => {
-    setLoggedInUser({ user: { name: null, id: null, email: null }, token: null });
+    setLoggedInUser({ user: { name: '', id: '', email: '' }, token: '' });
     window.localStorage.setItem('ACTIVE_USER', '');
     window.localStorage.setItem('USER_ID', '');
     window.localStorage.setItem('USER_EMAIL', '');
@@ -51,7 +51,7 @@ return(
               <Link className="font-semibold px-3 pb-2 border-b border-stone-400" href='/exams'>Exams</Link>
               <Link className="font-semibold px-3 pb-2 border-b border-stone-400" href='/candidates'>Candidates</Link>
               </>
-              : loggedInUser.user?.id ? <Link className="font-semibold px-3 pb-2 border-b border-stone-400" href={`/candidates/${loggedInUser.user?.id}`}>My Exams</Link> : null}
+              : loggedInUser.user?.id ? <Link className="font-semibold px-3 pb-2 border-b border-stone-400" href={`/candidates/${loggedInUser.user.id}`}>My Exams</Link> : null}
             </div>
 
             {/* login/signup */}
