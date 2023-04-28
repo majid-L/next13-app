@@ -4,6 +4,7 @@ import { useState, useContext } from "react";
 import { LoggedInUserContext } from "../context/store";
 import { logout } from '../api/apiRequests';
 import userIsAdmin from '../helpers/userIsAdmin';
+import { LoggedInUserIcon } from "./Icons";
 
 const Header = () => {
 const [showMenu, setShowMenu] = useState(false);
@@ -75,13 +76,14 @@ return(
         </div>
         {/* mobile menu */}
         <div className={`${!showMenu && 'hidden'} md:hidden`}>
-          <div className="absolute flex flex-col -top-2 items-center self-end py-8 mt-10 space-y-6 bg-white sm:w-auto sm:self-center left-6 right-6 shadow-lg shadow-pink-500/40 border border-slate-300 rounded-lg">
+          <div className="absolute flex flex-col -top-2 items-center self-end pt-8 mt-10 space-y-6 bg-white sm:w-auto sm:self-center left-6 right-6 shadow-lg shadow-pink-500/40 border border-slate-300 rounded-lg">
             {!loggedInUser?.user?.id && <><Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/login'>Login</Link>
             <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/signup'>Signup</Link></>}
             <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/'>Home</Link>
             {userIsAdmin(loggedInUser) ? 
             <><Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/exams'>Exams</Link>
             <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/candidates'>Candidates</Link>
+            {loggedInUser.user?.name && <div className="flex justify-center w-full py-4 bg-brightPink text-slate-100 text-center mb-2 rounded-b-lg"><LoggedInUserIcon/><p>Logged in as {loggedInUser.user?.name}</p></div>}
             </> 
             : loggedInUser.user?.id ? <Link className="hover:text-orange-500" href={`/candidates/${loggedInUser.user?.id}`}>My Exams</Link> : null}
         </div>
