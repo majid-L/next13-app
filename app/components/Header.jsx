@@ -83,7 +83,14 @@ return(
             {userIsAdmin(loggedInUser) ? 
             <><Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/exams'>Exams</Link>
             <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/candidates'>Candidates</Link>
-            {loggedInUser.user?.name && <div className="flex justify-center w-full py-4 bg-brightPink text-slate-100 text-center mb-2 rounded-b-lg"><LoggedInUserIcon/><p>Logged in as {loggedInUser.user?.name}</p></div>}
+            {loggedInUser.user?.name && 
+            <div className="w-full py-4 bg-brightPink text-slate-100 text-center mb-2 rounded-b-lg">
+              <div className="flex justify-center">
+              <LoggedInUserIcon/>
+              <p>Logged in as {loggedInUser.user?.name}</p>
+              </div>
+              <button onClick={handleLogout} className="md:block py-2 px-3 mt-2.5 rounded-lg text-stone-200 bg-gray-800">Logout</button>
+            </div>}
             </> 
             : loggedInUser.user?.id ? <Link className="hover:text-orange-500" href={`/candidates/${loggedInUser.user?.id}`}>My Exams</Link> : null}
         </div>
