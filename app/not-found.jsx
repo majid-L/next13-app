@@ -8,7 +8,7 @@ return (
   </svg>
     <div className="mx-auto my-16 p-4 bg-indigo-200 w-11/12 max-w-3xl rounded-md shadow-lg shadow-red-300/60">
     <p className="text-lg font-semibold">Page not found.</p>
-    <p className="italic">Though this destination is unreachable, all is not lost, for there is always a way back to home.</p>
+    <p className="italic">Though this destination is unreachable, all is not lost, for there is always a way back home.</p>
     <a href='/' className="block w-fit bg-indigo-500 text-yellow-100 py-2.5 px-5 mt-4 border border-gray-400 rounded-md">Return to home</a>
   </div>
 </main>)
