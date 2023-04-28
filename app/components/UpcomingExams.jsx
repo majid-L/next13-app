@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { getUpcomingExams } from '../api/apiRequests';
 import { LoggedInUserContext } from '../context/store';
+import errorHandler from '../helpers/errorHandler';
 import { formatDateString } from '../helpers/examPageHelpers';
 import { CalendarIcon, ExamIcon } from './Icons';
 import Spinner from './Spinner';
@@ -23,11 +24,7 @@ useEffect(() => {
     })
     .catch(err => {
         setIsLoading(false);
-        if (err.response?.data?.message) {
-            setErrMsg(err.response.data.message);
-        } else {
-            setErrMsg('Unable to retrieve exam data.');
-        }
+        setErrMsg(errorHandler(err));
     })
 }, []);
 
