@@ -12,18 +12,7 @@ const [password, setPassword] = useState('');
 const [errMsg, setErrMsg] = useState('');
 const [successMsg, setSuccessMsg] = useState('');
 const [loading, setIsLoading] = useState(false);
-const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
-
-/*useEffect(() => {
-  if (loggedInUser.user?.name) {
-    window.localStorage.setItem('ACTIVE_USER', loggedInUser.user.name);
-    window.localStorage.setItem('USER_ID', loggedInUser.user.id);
-    window.localStorage.setItem('USER_EMAIL', loggedInUser.user.email);
-    window.localStorage.setItem('AUTH_TOKEN', loggedInUser.token);
-    setEmail('');
-    setPassword('');
-  }
-}, [loggedInUser]);*/
+const { setLoggedInUser } = useContext(LoggedInUserContext);
 
 const handleSubmit = e => {
   e.preventDefault();
@@ -47,7 +36,7 @@ const handleSubmit = e => {
 };
 
 return (
-<main>
+<main className="pb-20">
   <h1 className="text-center text-stone-100 font-bold text-4xl mt-20">Log in</h1>
   <p className="text-center text-stone-100 mt-2">Log in with your email and password.</p>
   <form onSubmit={handleSubmit} className="mx-auto my-10 p-4 bg-stone-200 w-11/12 max-w-3xl rounded-md shadow-lg shadow-pink-400/60">
