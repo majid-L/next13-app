@@ -10,7 +10,6 @@ import ExamForm from '../../components/ExamForm';
 import { ignoreEmptyFields, formatRequestBody } from '../../helpers/requestBodyManipulators';
 import errorHandler from '../../helpers/errorHandler';
 
-
 const SingleExamPage = ({params}) => {
 // States concerned with fetching the exam
 const [exam, setExam] = useState({date: ''});

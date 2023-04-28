@@ -1,6 +1,5 @@
 export const ignoreEmptyFields = examDetails => Object.entries(examDetails).filter(([field, value]) => value.length > 0 && !/^\s+$/.test(value));
 
-
 export const formatRequestBody = (userInput, existingObject) => {
   const validatedInput = ignoreEmptyFields(userInput);
   const body = {};

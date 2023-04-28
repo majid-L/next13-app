@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { LoggedInUserContext } from "../context/store";
 import {login} from '../api/apiRequests';
 import Spinner from "../components/Spinner";
