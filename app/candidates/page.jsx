@@ -1,6 +1,5 @@
 'use client';
-import { useState, useContext, useEffect } from "react";
-import { LoggedInUserContext } from "../context/store";
+import { useState, useEffect } from "react";
 import { getCandidates } from '../api/apiRequests';
 import Spinner from '../components/Spinner';
 import Link from "next/link";
@@ -8,18 +7,17 @@ import BackToTopButton from "../components/BackToTopButton";
 import { notFound } from "next/navigation";
 import userIsAdmin from "../helpers/userIsAdmin";
 
-// Candidates are referred to as "users" in the API
 const CandidatesPage = () => {
 const [candidates, setCandidates] = useState('');
 const [isLoading, setIsLoading] = useState(false);
-const { loggedInUser } = useContext(LoggedInUserContext);
 
 useEffect(() => {
-  if (!loggedInUser.user?.id || !userIsAdmin(loggedInUser)) {
+  if (!window.localStorage.getItem('USER_ID') || 
+  !userIsAdmin({ user: { email : window.localStorage.getItem('USER_EMAIL')}})) {
     notFound();
   }
   setIsLoading(true);
-  getCandidates(loggedInUser)
+  getCandidates({ token: window.localStorage.getItem('AUTH_TOKEN')})
   .then(({users}) => {
     setIsLoading(false);
     setCandidates(users);
