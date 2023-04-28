@@ -5,16 +5,17 @@ import { LoggedInUserContext } from "../context/store";
 import { signup } from '../api/apiRequests';
 import Spinner from "../components/Spinner";
 import errorHandler from "../helpers/errorHandler";
+import ErrorMessage from "../components/ErrorMessage";
 
 const SignupPage = () => {
 const [name, setName] = useState('');
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 const [passwordConf, setPasswordConf] = useState('');
-const [errMsg, setErrMsg] = useState('');
+const [errorMsg, setErrorMsg] = useState({ value: '', show: ''});
 const [successMsg, setSuccessMsg] = useState('');
 const [isLoading, setIsLoading] = useState(false);
-const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
+const { setLoggedInUser } = useContext(LoggedInUserContext);
 
 const handleSubmit = e => {
   e.preventDefault();
@@ -36,7 +37,7 @@ const handleSubmit = e => {
   })
   .catch(err => {
     setIsLoading(false);
-    setErrMsg(errorHandler(err));
+    setErrorMsg({value: errorHandler(err), show: true});
   })
 };
 
@@ -72,11 +73,7 @@ return (
     <button onClick={() => setSuccessMsg(false)} className="bg-green-300 py-2.5 px-5 mt-4 border border-gray-400 rounded-md ">Dismiss</button>
   </div>}
 
-  {errMsg && <div className="mx-auto my-16 p-4 bg-red-200 w-11/12 max-w-3xl rounded-md shadow-lg shadow-red-300/60">
-    <p className="text-lg font-semibold">Somthing went wrong.</p>
-    <p>{errMsg}</p>
-    <button onClick={() => setErrMsg(false)} className="bg-red-300 py-2.5 px-5 mt-4 border border-gray-400 rounded-md ">Dismiss</button>
-  </div>}
+  {errorMsg.show && <ErrorMessage errorMsg={errorMsg} setErrorMsg={setErrorMsg}/>}
 </main>);
 };
 
