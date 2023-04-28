@@ -76,7 +76,7 @@ return(
         </div>
         {/* mobile menu */}
         <div className={`${!showMenu && 'hidden'} md:hidden`}>
-          <div className="absolute flex flex-col -top-2 items-center self-end pt-8 mt-10 space-y-6 bg-white sm:w-auto sm:self-center left-6 right-6 shadow-lg shadow-pink-500/40 border border-slate-300 rounded-lg">
+          <div className={`${loggedInUser?.user?.id ? 'pt-8' : 'p-8'} absolute flex flex-col -top-2 items-center self-end mt-10 space-y-6 bg-white sm:w-auto sm:self-center left-6 right-6 shadow-lg shadow-pink-500/40 border border-slate-300 rounded-lg`}>
             {!loggedInUser?.user?.id && <><Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/login'>Login</Link>
             <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/signup'>Signup</Link></>}
             <Link className="hover:text-orange-500" onClick={() => setShowMenu(false)} href='/'>Home</Link>
