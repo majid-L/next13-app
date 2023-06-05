@@ -44,7 +44,7 @@ const handleSubmit = e => {
 return (
 <main className="pb-20">
   <h1 className="text-stone-100 text-center w-4/5 font-bold text-3xl md:text-4xl mx-auto mt-16">Sign up for a new account.</h1>
-  <p className="text-center text-stone-100 w-4/5 mx-auto mt-4">For demonstration purposes, sign up with an email ending with @v3.admin to enable access to all of the app's features.</p>
+  <p className="text-center text-stone-100 w-4/5 mx-auto mt-4">For demonstration purposes, sign up with an email ending with <span className="font-bold">@v3.admin</span> to enable access to all of the app's features.</p>
   <form onSubmit={handleSubmit} className="mx-auto my-10 p-4 bg-stone-200 w-11/12 max-w-3xl rounded-md shadow-lg shadow-pink-400/60">
     <div>
     <label className="block mb-2">Name</label>
