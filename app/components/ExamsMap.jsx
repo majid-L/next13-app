@@ -32,20 +32,6 @@ return (
 <main>
   {isLoading && <Spinner/>}
 
-  {/* Buttons */}
-  {!isLoading && windowWidth > 660 &&
-  <div className="text-center bg-slate-200 w-56 mx-auto mt-10 rounded-lg">
-  <p className="bg-brightPink p-2 rounded-t-md">Change map size</p>
-  <div className="flex justify-center">
-  <button onClick={() => setMapWidth(mapWidth + 100)} className="m-2">
-  <img className="w-7 h-7" src="/images/plus-square-fill.svg"/>
-  </button>
-  <button onClick={() => setMapWidth(mapWidth - 100)} className="m-2">
-  <img className="w-7 h-7" src="/images/dash-square-fill.svg"/>
-  </button>
-  </div>
-  </div>}
-
   {/* Map */}
   {!isLoading && <div className="flex justify-center m-auto mt-4 lg:w-11/12 max-w-screen-lg">
     <BingMapsReact 
@@ -59,6 +45,20 @@ return (
         mapTypeId: "canvasLight",
         zoom: 1
       }}/>
+  </div>}
+
+   {/* Buttons */}
+   {!isLoading && windowWidth > 660 &&
+  <div className="text-center bg-slate-200 w-56 mx-auto mt-7 rounded-lg">
+  <p className="bg-brightPink p-2 rounded-t-md">Change map size</p>
+  <div className="flex justify-center">
+  <button onClick={() => setMapWidth(mapWidth + 100)} className="m-2">
+  <img className="w-7 h-7" src="/images/plus-square-fill.svg"/>
+  </button>
+  <button onClick={() => setMapWidth(mapWidth - 100)} className="m-2">
+  <img className="w-7 h-7" src="/images/dash-square-fill.svg"/>
+  </button>
+  </div>
   </div>}
 </main>);
 }
