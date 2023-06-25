@@ -167,7 +167,7 @@ type ContextValues = {
     exams: Exam[],
     setExams: Dispatch<SetStateAction<Exam[]>>,
     setConfirmationMsg: Dispatch<SetStateAction<string>>,
-    errorMsg: {value: string, show: string},
+    errorMsg: ErrorMsg,
     isLoading: boolean,
     loggedInUser: Auth,
     date: Date | string,
@@ -232,11 +232,11 @@ export type ExamsMapProps = {
   }
 
   type ErrorMsg = {
-    value: string,
+    value: string | object,
     show: boolean
   }
 
-  export type ErrorMEssage = {
+  export type ErrorMessage = {
     errorMsg: ErrorMsg,
     setErrorMsg: Dispatch<SetStateAction<ErrorMsg>>
   }
