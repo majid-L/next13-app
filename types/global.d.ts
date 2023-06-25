@@ -89,17 +89,19 @@ declare global {
   
   // This is the format of POST request bodies and POST/PUT responses
   type ExamFields = {
+    title: string
+    description: string,
     candidate_id: string | number,
     candidate_name: string,
     date: string,
-    description: string,
-    latitude: string,
-    longitude: string,
     location_name: string,
-    title: string
   }
   
-  export type ExamPostRequestBody = ExamFields & { time: string }
+  export type ExamPostRequestBody = ExamFields & {
+    latitude: string,
+    longitude: string,
+    time: string 
+  }
   
   export type ExamPutRequestBody = {
     date?: string,
@@ -109,7 +111,11 @@ declare global {
     title?: string,
   }
   
-  export type PostPutExamResponse = ExamFields & { id: number }
+  export type PostPutExamResponse = ExamFields & { 
+    latitude: string,
+    longitude: string,
+    id: number 
+  }
 
   // This is the structure of the PUT request body
   export type ExamDetails = {
@@ -189,10 +195,63 @@ type ContextValues = {
   }
 
 /******************************************************************************/
-// Prop types for error boundary
-export type ErrorProps = {
-  error: Error,
-  reset: () => void;
+// Prop types and state setter for exam form
+  export type ExamFormProps = {
+    handleSubmit: (e: FormEvent<HTMLFormElement>) => void,
+    examDetails: ExamFormFields,
+    setExamDetails: Dispatch<SetStateAction<ExamFormFields>>,
+    formType: string
+  }
+
+  export type ExamFormFields = ExamFields & {
+    time: string
+  }
+
+/******************************************************************************/
+// Prop types for exams list component
+  export type ExamsListProps = {
+    isLoading: Boolean,
+    exams: Exam[],
+    loggedInUser: Auth,
+    setConfirmationMsg: Dispatch<SetStateAction<string>>,
+    setExams: Dispatch<SetStateAction<Exam[] | []>>
+  }
+
+/******************************************************************************/
+// Prop types for exams map
+export type ExamsMapProps = {
+  isLoading: boolean,
+  exams: Exam[]
 }
+
+/******************************************************************************/
+// Prop types for error boundary and error notification
+  export type ErrorProps = {
+    error: Error,
+    reset: () => void;
+  }
+
+  type ErrorMsg = {
+    value: string,
+    show: boolean
+  }
+
+  export type ErrorMEssage = {
+    errorMsg: ErrorMsg,
+    setErrorMsg: Dispatch<SetStateAction<ErrorMsg>>
+  }
+
+/******************************************************************************/
+// Prop types for confiramtion message component
+  export type ConfirmationProps = {
+    confirmationMsg: string,
+    setConfirmationMsg: Dispatch<SetStateAction<string>>
+  }
+
+/******************************************************************************/
+// Prop types for show/hide toggle buttons on PUT form
+  export type ToggleHideButtonsProps = {
+    setShowContent: Dispatch<SetStateAction<boolean>>
+  }
 
 }
