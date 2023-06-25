@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = BingMapsReact;
+//exports.default = BingMapsReact;
 
 require("core-js/modules/es.symbol.description.js");
 
