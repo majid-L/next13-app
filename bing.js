@@ -26,14 +26,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function BingMapsReact(_ref) {
   let {
-    bingMapsKey,
-    height,
-    mapOptions,
-    onMapReady,
-    pushPins,
-    pushPinsWithInfoboxes,
-    viewOptions,
-    width
+    bingMapsKey = null,
+    height = "100%",
+    mapOptions = null,
+    onMapReady = null,
+    pushPins = null,
+    pushPinsWithInfoboxes = null,
+    viewOptions = null,
+    width = "100%"
   } = _ref;
   // refs
   const mapContainer = (0, _react.useRef)(null);
@@ -200,14 +200,3 @@ function BingMapsReact(_ref) {
     }
   });
 }
-
-BingMapsReact.defaultProps = {
-  bingMapsKey: null,
-  mapOptions: null,
-  height: "100%",
-  onMapReady: null,
-  pushPins: null,
-  pushPinsWithInfoboxes: null,
-  viewOptions: null,
-  width: "100%"
-};
