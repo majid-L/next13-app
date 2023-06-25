@@ -6,7 +6,9 @@
     "loadenv": "set NODE_ENV=dev",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint",
+    "ts": "tsc --noEmit"
   },
   "dependencies": {
     "@babel/core": "^7.4.5",
@@ -16,6 +18,8 @@
     "axios": "^1.3.6",
     "bingmaps-react": "^1.2.10",
     "core-js": "^3.30.1",
+    "eslint": "8.39.0",
+    "eslint-config-next": "13.3.1",
     "next": "13.3.1",
     "postcss": "8.4.23",
     "react": "18.2.0",
