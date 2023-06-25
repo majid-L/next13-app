@@ -200,3 +200,5 @@ function BingMapsReact(_ref) {
     }
   });
 }
+
+export default BingMapsReact;
