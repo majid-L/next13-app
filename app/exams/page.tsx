@@ -22,7 +22,7 @@ const [exams, setExams] = useState<Exam[] | []>([]);
 const [isLoading, setIsLoading] = useState(false);
 const { loggedInUser } = useContext(LoggedInUserContext);
 const [confirmationMsg, setConfirmationMsg] = useState('');
-const [errorMsg, setErrorMsg] = useState({ value: '', show: ''});
+const [errorMsg, setErrorMsg] = useState({ value: '', show: false});
 
 // Allow user to select list or map view
 const [view, setView] = useState('list');
@@ -56,7 +56,7 @@ useEffect(() => {
   if (!loggedInUser.user?.id || !userIsAdmin(loggedInUser)) {
     notFound();
   }
-  setErrorMsg({value: '', show: ''});
+  setErrorMsg({value: '', show: false});
   setIsLoading(true);
   getExams(loggedInUser.token!, candidateName, location, formatDateString(date), month, year, limit, pageControl, order)
   .then(({exams, meta : { current_page: page, last_page: pageCount, total }, links : { prev, next }}) => {
@@ -69,7 +69,7 @@ useEffect(() => {
  })
  .catch(err => {
     setIsLoading(false);
-    setErrorMsg({show: '', value: errorHandler(err)});
+    setErrorMsg({show: true, value: errorHandler(err)});
  });  
 }, [candidateName, location, date, month, year, limit, pageControl, order]);
 
