@@ -11,9 +11,14 @@ import { LoggedInUserContext } from "../context/store";
 const CandidatesPage = () => {
 const [candidates, setCandidates] = useState<User[] | ''>('');
 const [isLoading, setIsLoading] = useState(false);
+const [isHydrated, setIsHydrated] = useState(false);
 const { loggedInUser } = useContext(LoggedInUserContext);
 
 useEffect(() => {
+  if (!isHydrated && !loggedInUser.user?.id) {
+    setIsHydrated(true);
+    return;
+  }
   if (!window.localStorage.getItem('USER_ID') || !userIsAdmin(loggedInUser)) {
     notFound();
   }
@@ -26,7 +31,7 @@ useEffect(() => {
   .catch(() => {
     setIsLoading(false);
   });
-}, []);
+}, [loggedInUser]);
 
 return (<main className="pb-20 mx-auto w-11/12 sm:w-5/6">
   <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-12 text-shadow-sm">Viewing all candidates</h1>
@@ -40,7 +45,7 @@ return (<main className="pb-20 mx-auto w-11/12 sm:w-5/6">
                     <p className="p-2 font-bold text-lg border-b-2 border-t-indigo-500">{name}</p>
                     <p className="px-2 py-1">{email}</p>
                     <p className="px-2">Candidate ID: {id}</p>
-                    <Link href={`/candidates/${id}`} className="px-2 block mt-2 text-pink-700">View {name}'s exams</Link>
+                    <Link href={{ pathname: `/candidates/${id}`, query: { name } }} className="px-2 block mt-2 text-pink-700">View {name}'s exams</Link>
                 </div>
             </div>
         </div>

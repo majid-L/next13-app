@@ -1,5 +1,6 @@
 'use client';
 import ExamsList from '../../components/ExamsList';
+import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { LoggedInUserContext } from '../../context/store';
@@ -18,6 +19,8 @@ const SingleCandidateExams = ({params : { id }}: { params: { id: string }}) => {
   const [errorMsg, setErrorMsg] = useState({ value: '', show: true});
   const [confirmationMsg, setConfirmationMsg] = useState('');
   const { loggedInUser } = useContext(LoggedInUserContext);
+  const searchParams = useSearchParams();
+  const candidateName = searchParams.get("name");
 
   useEffect(() => {
     if (confirmationMsg) {
@@ -29,20 +32,20 @@ const SingleCandidateExams = ({params : { id }}: { params: { id: string }}) => {
     setErrorMsg({value: '', show: false});
     redirectUnauthorisedUser(id);
     setIsLoading(true);
-      getSingleCandidatesExams(window.localStorage.getItem('AUTH_TOKEN') as string, id)
-      .then(res => {
-        setIsLoading(false);
-        setExams(res.exams);
-     })
-     .catch(err => {
-        setIsLoading(false);
-        setErrorMsg({value: errorHandler(err), show: true});
-     });
+    getSingleCandidatesExams(window.localStorage.getItem('AUTH_TOKEN') as string, id)
+    .then(res => {
+      setIsLoading(false);
+      setExams(res.exams);
+    })
+    .catch(err => {
+      setIsLoading(false);
+      setErrorMsg({value: errorHandler(err), show: true});
+    });
   }, []);
 
   return (
     <main className="pb-20 mx-auto w-11/12 sm:w-5/6">
-      <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-12 mx-4 text-shadow-sm">{userIsAdmin(loggedInUser) ? `Viewing exam sessions for ${!isLoading && exams ? (exams as Exam[])[0].candidateName : '...'}` : 'My exams'}</h1>
+      <h1 className="text-center text-stone-100 font-bold text-4xl md:text-5xl mt-12 mx-4 text-shadow-sm">{userIsAdmin(loggedInUser) ? `Viewing exam sessions for ${!isLoading && exams ? candidateName : '...'}` : 'My exams'}</h1>
       <p className="text-center text-stone-100 mt-4 mb-16 md:text-xl">{userIsAdmin(loggedInUser) ? 'To see all exams for a specific student, click on an exam and you will be taken to the relevant page.' : 'For further details, click on an exam and you will be taken to its information page.'}</p>
 
       {confirmationMsg && <ConfirmationMessage confirmationMsg={confirmationMsg} setConfirmationMsg={setConfirmationMsg}/>}
