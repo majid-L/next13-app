@@ -15,6 +15,8 @@ import ViewControls from './ViewControls';
 import DataControls from './DataControls';
 import CalendarControls from './Calendar';
 import DisplayView from './DisplayView';
+import UpcomingExams from '../components/UpcomingExams';
+import BackToTopButton from '../components/BackToTopButton';
 
 const ExamsPage = () => {
 // States concerned with fetching of exam data
@@ -80,7 +82,8 @@ useEffect(() => {
 
 
 return (
-  <main className="pb-20 mx-auto w-11/12 sm:w-5/6">
+  <main className="pb-20 xl-2:relative">
+    <div className="mx-auto w-11/12 sm:w-5/6">
     <section>
       {confirmationMsg && <ConfirmationMessage confirmationMsg={confirmationMsg} setConfirmationMsg={setConfirmationMsg}/>}
       <TextSection view={view}/>
@@ -93,6 +96,13 @@ return (
        </section>}
     </section>
       <DisplayView exams={exams} setExams={setExams} errorMsg={errorMsg} isLoading={isLoading} loggedInUser={loggedInUser} date={date} month={month} year={year} view={view} setConfirmationMsg={setConfirmationMsg}/>
+
+      {loggedInUser.user?.id && userIsAdmin(loggedInUser) && <div className="xl-2:mt-6 xl-2:ml-6 xl-2:w-64 xl-2:absolute xl-2:-top-14 xl-2:left-0">
+    <h2 className="bg-brightPink mt-16 xl-2:mt-0 text-center xl-2:text-left text-slate-200 w-full font-bold p-2 xl-2:rounded-t-lg xl-2:border-b-2 border-b-gray-400">Upcoming exam sessions</h2>
+    <UpcomingExams/>
+    </div>}
+    </div>
+    {exams.length > 0 && <BackToTopButton />}
   </main>
 );
 };

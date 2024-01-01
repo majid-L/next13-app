@@ -1,10 +1,9 @@
 import ExamsList from '../components/ExamsList';
 import ExamsMap from '../components/ExamsMap';
-import BackToTopButton from '../components/BackToTopButton';
 
 const DisplayView = ({ exams, setExams, errorMsg, isLoading, loggedInUser, date, month, year, view, setConfirmationMsg }: DisplayViewProps) => {
   return (
-  <section>
+  <section className="xl-2:w-4/5 xl-2:mx-auto">
     {/* Conditionally render map or list */}
     {exams.length === 0 && !errorMsg.value && !isLoading ? 
     <>
@@ -17,8 +16,6 @@ const DisplayView = ({ exams, setExams, errorMsg, isLoading, loggedInUser, date,
     </>
     : view === 'list' ? <ExamsList loggedInUser={loggedInUser} exams={exams} setExams={setExams} isLoading={isLoading} setConfirmationMsg={setConfirmationMsg}/>
     : <ExamsMap exams={exams} isLoading={isLoading}/>}
-
-    {exams.length > 0 && <BackToTopButton />}
   </section>
   );
 }
