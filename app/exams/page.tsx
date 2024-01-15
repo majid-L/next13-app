@@ -48,7 +48,6 @@ const [order, setOrder] = useState('DESC');
 
 // Scrolls to top, onto the confirmation message
 useEffect(() => {
-  console.log(loggedInUser)
   if (confirmationMsg) {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }
